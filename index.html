@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2b1a0c">
+<title>কৃষকের ঝুলি — খাঁটি খেজুর গুড়</title>
+<meta name="description" content="কৃষকের ঝুলি — গাছির হাত থেকে সরাসরি খাঁটি খেজুরের গোল পাটালি, বীজ গুড়, ফয়েল পাটালি ও ঝোলা গুড়। ক্যাশ অন ডেলিভারি, সারাদেশে হোম ডেলিভারি।">
+<link rel="icon" href="images/logo-sm.png">
+<link rel="preload" as="image" href="images/hero-gachi.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700&family=Galada&display=swap" rel="stylesheet">
+<style>
+  /* ========= রং ও মাপ ========= */
+  :root{
+    --bg:#fbf6ee; --surface:#fff; --ink:#2b1d12; --muted:#6f5a48;
+    --gur:#8a4b1c; --gur-deep:#5c2f10; --honey:#e0962f; --gold:#f5b553;
+    --green:#2f6b1e; --green-soft:#eef3e8; --line:#ecdfcc;
+    --shadow:0 10px 30px rgba(92,47,16,.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:"Baloo Da 2",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;padding-bottom:84px}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+  h1,h2,h3{font-family:"Galada",cursive;font-weight:400;line-height:1.3}
+  section{padding:56px 0}
+  [id]{scroll-margin-top:12px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:16px;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--gur);color:#fff}
+  .btn-primary:hover{background:var(--gur-deep)}
+  .btn-gold{background:var(--gold);color:#2b1d12}
+  .btn-gold:hover{background:#ffc66b}
+  .btn-light{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.7);color:#fff;backdrop-filter:blur(4px)}
+  .btn-light:hover{background:#fff;color:var(--gur-deep)}
+
+  /* ========= header ========= */
+  header{position:relative;z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Galada",cursive;font-size:21px;color:var(--gur-deep);white-space:nowrap}
+  .brand img{width:42px;height:42px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .brand .g{color:var(--green)}
+  .nav ul{display:none;gap:26px;list-style:none;font-weight:500;color:var(--muted)}
+  .nav ul a:hover{color:var(--gur)}
+  .nav .btn{min-height:40px;padding:8px 16px;font-size:15px}
+
+  /* ========= hero ========= */
+  .hero{position:relative;color:#fff;display:flex;align-items:center;padding:40px 0 36px;
+    background:linear-gradient(0deg,rgba(28,16,6,.92) 0%,rgba(28,16,6,.7) 55%,rgba(28,16,6,.45) 100%),
+               url("images/hero-gachi.webp") 50% center/cover no-repeat}
+  .hero-inner{width:100%}
+  .tag{display:inline-block;padding:6px 14px;border-radius:999px;font-weight:600;font-size:13.5px;margin-bottom:14px;background:rgba(255,255,255,.14);color:#ffe7c2;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px)}
+  .hero h1{font-size:clamp(34px,9vw,62px);text-shadow:0 2px 18px rgba(0,0,0,.35)}
+  .hero h1 span{color:var(--gold)}
+  .hero p{color:#f1e4d2;font-size:17px;margin:14px 0 24px;max-width:540px}
+  .cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:440px}
+  .trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .trust span{font-size:13.5px;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);color:#f3e6d3}
+
+  /* ========= section head ========= */
+  .head{text-align:center;max-width:640px;margin:0 auto 28px}
+  .head h2{font-size:clamp(26px,6.5vw,40px);color:var(--gur-deep);position:relative;padding-bottom:12px}
+  .head h2::after{content:"";position:absolute;left:50%;bottom:0;width:60px;height:4px;border-radius:4px;transform:translateX(-50%);background:linear-gradient(90deg,var(--green),var(--honey))}
+  .head p{color:var(--muted);margin-top:10px}
+
+  /* ========= products ========= */
+  .products-sec{background:linear-gradient(180deg,var(--bg),#f6ead8)}
+  .products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .prod{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;border:1px solid var(--line);transition:transform .25s,box-shadow .25s}
+  .prod-img{position:relative;aspect-ratio:1;overflow:hidden}
+  .prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .badge{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;font-size:12px;padding:3px 10px;border-radius:999px;font-weight:600}
+  .badge.hot{background:#c2410c}
+  .prod-body{padding:12px 12px 14px;display:flex;flex-direction:column;flex:1}
+  .prod h3{font-size:18px;color:var(--gur-deep)}
+  .prod p{display:none;color:var(--muted);font-size:14.5px;margin:4px 0 10px}
+  .min{font-size:12px;color:var(--green);font-weight:600;margin:2px 0 8px}
+  .price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 6px;margin-top:auto;margin-bottom:10px}
+  .price b{font-size:22px;color:var(--gur);font-family:"Galada",cursive;font-weight:400}
+  .price s{color:#a99683;font-size:13px}
+  .price small{color:var(--muted);font-size:13px}
+  .add{min-height:44px}
+  .add .btn{width:100%;min-height:44px;padding:8px 10px;font-size:15px}
+  .qty{display:flex;align-items:center;justify-content:space-between;background:#fff7ea;border:1.5px solid var(--honey);border-radius:999px;padding:3px;min-height:44px}
+  .qty button{width:38px;height:38px;border-radius:50%;border:none;background:var(--gur);color:#fff;font-size:20px;line-height:1;cursor:pointer}
+  .qty output{font-weight:700;color:var(--gur-deep);font-size:15px}
+
+  /* ========= why ========= */
+  .features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .ico{width:46px;height:46px;border-radius:14px;background:#f6ead6;display:grid;place-items:center;font-size:23px;margin-bottom:10px}
+  .card h3{font-size:17px;color:var(--gur-deep);margin-bottom:4px}
+  .card p{color:var(--muted);font-size:14.5px}
+
+  /* ========= process ========= */
+  .process{background:var(--gur-deep);color:#f6ead6}
+  .process .head h2{color:#fff}.process .head p{color:#e3cfb3}
+  .process .head h2::after{background:var(--gold)}
+  .steps{display:grid;gap:12px;counter-reset:s}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid rgba(255,255,255,.15);border-radius:18px;background:rgba(255,255,255,.04)}
+  .step::before{counter-increment:s;content:counter(s,bengali);flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#2b1d12;font-family:"Galada",cursive;font-size:22px}
+  .step h3{color:#fff;font-size:18px}
+  .step p{font-size:14.5px;color:#e3cfb3}
+
+  /* ========= reviews (swipe on mobile) ========= */
+  .reviews{display:grid;grid-auto-flow:column;grid-auto-columns:85%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 12px;margin:0 -16px;scrollbar-width:none}
+  .reviews::-webkit-scrollbar{display:none}
+  .rev{scroll-snap-align:center}
+  .rev .stars{color:var(--honey);letter-spacing:2px}
+  .rev p{color:var(--ink);margin:8px 0 10px;font-size:15.5px}
+  .rev span{color:var(--muted);font-size:13.5px}
+  .swipe{text-align:center;color:var(--muted);font-size:13px;margin-top:4px}
+
+  /* ========= order ========= */
+  .order-sec{background:#f4e8d6}
+  .order-grid{display:grid;gap:20px}
+  .order-sec .head{text-align:left;margin:0 0 16px}
+  .order-sec .head h2::after{left:0;transform:none}
+  form{display:grid;gap:14px}
+  label{font-weight:600;font-size:15px;color:var(--gur-deep)}
+  input,select,textarea{width:100%;min-height:48px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:16px;background:#fffdf9;color:var(--ink);margin-top:4px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--honey);box-shadow:0 0 0 3px rgba(224,150,47,.18)}
+  .items{display:grid;gap:8px;margin-top:6px}
+  .item{display:flex;align-items:center;gap:10px;padding:8px;border:1.5px solid var(--line);border-radius:14px;background:#fffdf9;transition:border-color .2s,background .2s}
+  .item.on{border-color:var(--honey);background:#fff7ea}
+  .item img{width:52px;height:52px;border-radius:10px;object-fit:cover;flex:none}
+  .item .info{flex:1;min-width:0;line-height:1.3}
+  .item .info b{display:block;color:var(--gur-deep);font-size:15px}
+  .item .info small{color:var(--muted);font-size:12.5px}
+  .stepper{display:flex;align-items:center;gap:2px;flex:none}
+  .stepper button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gur);background:#fff;color:var(--gur);font-size:19px;line-height:1;cursor:pointer}
+  .stepper button:active{background:var(--gur);color:#fff}
+  .stepper output{min-width:50px;text-align:center;font-weight:600;font-size:14px}
+  .err{color:#b3261e;font-size:14px;display:none}
+  .summary{background:#f6ead6;border-radius:14px;padding:12px 14px;display:grid;gap:4px;font-size:15px}
+  .summary div{display:flex;justify-content:space-between}
+  .summary .grand{font-weight:700;font-size:17px;border-top:1px dashed #d8c3a3;padding-top:6px;margin-top:2px}
+  .summary .grand b{color:var(--gur);font-size:20px}
+  .note{font-size:14px;color:var(--muted);text-align:center}
+  .contact-list{display:grid;gap:10px}
+  .contact-list a{display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;min-height:60px}
+  .contact-list a:hover{border-color:var(--honey)}
+  .contact-list .ico{margin:0;width:42px;height:42px;font-size:20px;flex:none}
+  .contact-list small{display:block;color:var(--muted);font-size:13px}
+
+  /* ========= faq ========= */
+  .faq{max-width:760px;margin:0 auto}
+  details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+  summary{cursor:pointer;font-weight:600;color:var(--gur-deep);list-style:none;display:flex;justify-content:space-between;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:22px;line-height:1;color:var(--honey);flex:none}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);margin-top:8px;font-size:15px}
+
+  footer{background:#22160c;color:#cdb89c;padding:40px 0 30px;text-align:center;font-size:15px}
+  .foot-logo{width:96px;height:96px;border-radius:50%;margin:0 auto 12px}
+  footer .brand{justify-content:center;color:#f6ead6;margin-bottom:6px}
+  footer .brand .g{color:#9fd17f}
+
+  /* ========= mobile bottom bar ========= */
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;align-items:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(60,30,10,.08)}
+  .bar{transition:transform .3s,opacity .3s}
+  .bar.hide{transform:translateY(130%);opacity:0;pointer-events:none}
+  .bar .go{flex:1;min-height:48px;border-radius:14px;justify-content:space-between;padding:8px 16px}
+  .bar .go small{display:block;font-weight:500;font-size:12px;opacity:.85;line-height:1.2}
+  .bar .go b{font-size:16px;line-height:1.2}
+
+  .toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,160px);background:var(--green);color:#fff;padding:12px 18px;border-radius:12px;box-shadow:var(--shadow);transition:transform .3s;z-index:50;width:max-content;max-width:calc(100% - 32px);text-align:center;font-size:15px}
+  .toast.show{transform:translate(-50%,0)}
+
+  /* ========= tablet / desktop ========= */
+  @media (min-width:640px){
+    .wrap{padding:0 24px}
+    .prod p{display:block}
+    .prod-body{padding:16px 18px 18px}
+    .prod h3{font-size:21px}
+    .min{font-size:13px}
+    .reviews{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible;margin:0;padding:0}
+    .swipe{display:none}
+    .steps{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:960px){
+    body{padding-bottom:0;font-size:17px}
+    section{padding:84px 0}
+    .nav{height:68px}
+    .nav ul{display:flex}
+    .bar{left:auto;right:24px;bottom:24px;width:340px;padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none}
+    .bar .go{box-shadow:0 12px 30px rgba(60,30,10,.3)}
+    .toast{bottom:100px}
+    .hero{min-height:560px;padding:64px 0;
+      background:linear-gradient(90deg,rgba(28,16,6,.9) 0%,rgba(28,16,6,.6) 42%,rgba(28,16,6,.05) 75%),
+                 linear-gradient(0deg,rgba(28,16,6,.5),transparent 35%),
+                 url("images/hero-gachi.webp") 62% center/cover no-repeat}
+    .hero p{font-size:19px}
+    .products{grid-template-columns:repeat(4,1fr);gap:22px}
+    .prod:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(92,47,16,.16)}
+    .prod:hover .prod-img img{transform:scale(1.06)}
+    .features{grid-template-columns:repeat(4,1fr);gap:20px}
+    .card{padding:24px}
+    .steps{grid-template-columns:repeat(4,1fr)}
+    .step{flex-direction:column}
+    .order-grid{grid-template-columns:1fr 1.1fr;gap:36px;align-items:start}
+  }
+
+  /* ===== COD ===== */
+  .cod-steps{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .cod-steps span{font-size:13px;font-weight:600;background:#fff;border:1px solid var(--line);color:var(--gur-deep);padding:5px 10px;border-radius:999px}
+  .pay{display:flex;gap:12px;align-items:center;margin-top:6px;padding:12px 14px;border:2px solid var(--green);background:var(--green-soft);border-radius:14px}
+  .pay .radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--green);flex:none;display:grid;place-items:center}
+  .pay .radio::after{content:"";width:11px;height:11px;border-radius:50%;background:var(--green)}
+  .pay b{display:block;color:var(--green);font-size:16px}
+  .pay small{color:var(--muted);font-size:13px;line-height:1.4;display:block}
+  input.bad,textarea.bad{border-color:#b3261e;box-shadow:0 0 0 3px rgba(179,38,30,.12)}
+  .modal{position:fixed;inset:0;z-index:60;background:rgba(20,12,4,.55);display:flex;align-items:flex-end;justify-content:center}
+  .modal[hidden]{display:none}
+  .sheet{position:relative;background:#fff;width:100%;max-width:460px;border-radius:24px 24px 0 0;padding:26px 18px calc(20px + env(safe-area-inset-bottom));max-height:92svh;overflow:auto;text-align:center;animation:up .3s ease}
+  @keyframes up{from{transform:translateY(40px);opacity:0}}
+  .check{width:60px;height:60px;border-radius:50%;background:var(--green);color:#fff;font-size:32px;display:grid;place-items:center;margin:0 auto 8px}
+  .sheet h3{font-size:26px;color:var(--gur-deep)}
+  .mid{color:var(--muted);margin:2px 0 12px}
+  .msum{text-align:left;background:#fbf3e6;border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.6}
+  .msum .row{display:flex;justify-content:space-between;gap:10px}
+  .msum .tot{border-top:1px dashed #d8c3a3;margin-top:6px;padding-top:6px;font-weight:700;color:var(--gur)}
+  .mhint{font-size:14px;color:var(--ink);margin:14px 0 10px;font-weight:500}
+  .msend{display:grid;gap:8px}
+  .msend .btn{width:100%;color:#fff}
+  .msend .wa{background:#25d366}.msend .sms{background:var(--gur)}.msend .msg{background:#0084ff}
+  .mcall{display:block;margin-top:12px;color:var(--gur);font-weight:600}
+  .mclose{position:absolute;top:10px;right:12px;width:40px;height:40px;border-radius:50%;border:none;background:#f3ebe0;font-size:18px;cursor:pointer}
+  @media (min-width:640px){.modal{align-items:center;padding:16px}.sheet{border-radius:24px}}
+  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <img src="images/logo-sm.png" alt="কৃষকের ঝুলি লোগো" width="42" height="42">
+      <span><span class="g">কৃষকের</span> ঝুলি</span>
+    </a>
+    <ul>
+      <li><a href="#products">পণ্য</a></li>
+      <li><a href="#why">কেন আমরা</a></li>
+      <li><a href="#faq">প্রশ্নোত্তর</a></li>
+    </ul>
+    <a href="#order" class="btn btn-primary">অর্ডার করুন</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <span class="tag">🌴 শীতের নতুন মৌসুমের গুড় এসে গেছে</span>
+    <h1>গাছের তাজা রস থেকে<br><span>খাঁটি খেজুরের গুড়</span></h1>
+    <p>ভোরের কুয়াশায় গাছির হাতে নামানো রস, মাটির চুলায় জ্বাল দেওয়া আসল স্বাদের গুড়। কোনো চিনি নেই, কোনো কেমিক্যাল নেই — কৃষকের ঝুলি থেকে সোজা আপনার ঘরে।</p>
+    <div class="cta">
+      <a href="#order" class="btn btn-gold">অর্ডার করুন →</a>
+      <a href="#products" class="btn btn-light">দাম দেখুন</a>
+    </div>
+    <div class="trust">
+      <span>✅ ১০০% ভেজালমুক্ত</span>
+      <span>🚚 সারাদেশে ডেলিভারি</span>
+      <span>💵 ক্যাশ অন ডেলিভারি</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="products-sec">
+  <div class="wrap">
+    <div class="head">
+      <h2>আমাদের গুড়</h2>
+      <p>পছন্দের গুড় বেছে নিন — প্রতিটি গুড় সর্বনিম্ন ১ কেজি</p>
+    </div>
+    <!-- পণ্যের কার্ড স্ক্রিপ্ট দিয়ে তৈরি হয়। দাম/নাম বদলাতে নিচের PRODUCTS তালিকা দেখুন -->
+    <div class="products" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section id="order" class="order-sec">
+  <div class="wrap order-grid">
+    <div>
+      <div class="head">
+        <h2>অর্ডার করুন</h2>
+        <p>গুড় বেছে ফর্মটি পূরণ করুন — আগে কোনো টাকা লাগবে না। আমরা কল করে অর্ডার কনফার্ম করব, পণ্য হাতে পেয়ে টাকা দেবেন।</p>
+        <div class="cod-steps"><span>১. গুড় বাছুন</span><span>২. ফর্ম পূরণ</span><span>৩. আমরা কল করব</span><span>৪. হাতে পেয়ে টাকা</span></div>
+      </div>
+      <div class="contact-list">
+        <a href="tel:+8801345998174"><span class="ico">📞</span><div><b>কল করুন</b><small>০১৩৪৫৯৯৮১৭৪</small></div></a>
+        <a href="https://wa.me/8801345998174" target="_blank" rel="noopener"><span class="ico">🟢</span><div><b>হোয়াটসঅ্যাপ</b><small>০১৩৪৫৯৯৮১৭৪</small></div></a>
+        <a href="https://m.me/61589148507129" target="_blank" rel="noopener"><span class="ico">💬</span><div><b>মেসেঞ্জারে মেসেজ দিন</b><small>সাধারণত কয়েক মিনিটেই রিপ্লাই</small></div></a>
+        <a href="https://www.facebook.com/profile.php?id=61589148507129" target="_blank" rel="noopener"><span class="ico">👍</span><div><b>ফেসবুক পেজ</b><small>কৃষকের ঝুলি — Krishoker Jhuli</small></div></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <form id="orderForm" novalidate>
+        <input id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <div><label>গুড় বেছে নিন <span style="font-weight:400;color:var(--muted)">(প্রতিটি সর্বনিম্ন ১ কেজি)</span></label>
+          <div class="items" id="items"></div>
+          <p class="err" id="err">অন্তত একটি গুড় বেছে নিন (সর্বনিম্ন ১ কেজি)।</p>
+        </div>
+        <div><label for="name">আপনার নাম</label><input id="name" autocomplete="name" required placeholder="যেমন: রহিম উদ্দিন"></div>
+        <div><label for="phone">মোবাইল নম্বর</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="০১XXXXXXXXX"></div>
+        <div><label for="area">ডেলিভারি এলাকা</label>
+          <select id="area">
+            <option value="70">ঢাকার ভেতরে — ৳৭০</option>
+            <option value="130">ঢাকার বাইরে — ৳১৩০</option>
+          </select>
+        </div>
+        <div><label for="addr">পূর্ণ ঠিকানা</label><textarea id="addr" rows="2" autocomplete="street-address" required placeholder="বাসা, রোড, থানা, জেলা"></textarea></div>
+        <div><label>পেমেন্ট পদ্ধতি</label>
+          <div class="pay">
+            <span class="radio" aria-hidden="true"></span>
+            <div><b>💵 ক্যাশ অন ডেলিভারি</b><small>আগে কোনো টাকা লাগবে না — পণ্য হাতে পেয়ে দেখে-শুনে টাকা দিন</small></div>
+          </div>
+        </div>
+        <div class="summary">
+          <div><span>পণ্যের দাম</span><span id="sub">৳০</span></div>
+          <div><span>ডেলিভারি চার্জ</span><span id="ship">৳০</span></div>
+          <div class="grand"><span>ডেলিভারিতে দিতে হবে</span><b id="total">৳০</b></div>
+        </div>
+        <button class="btn btn-primary" type="submit">✅ অর্ডার করুন — ক্যাশ অন ডেলিভারি</button>
+        <p class="note">অর্ডারে সমস্যা হলে কল করুন: <a href="tel:+8801345998174" style="color:var(--gur);font-weight:600">০১৩৪৫৯৯৮১৭৪</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="head">
+      <h2>কেন কৃষকের ঝুলির গুড়?</h2>
+      <p>বাজারের ভেজাল গুড়ে আর না। আমরা নিজেরা দাঁড়িয়ে থেকে গুড় বানাই।</p>
+    </div>
+    <div class="features">
+      <div class="card"><div class="ico">🌴</div><h3>সরাসরি গাছি থেকে</h3><p>মধ্যস্বত্বভোগী নেই — গ্রামের গাছিদের কাছ থেকে সরাসরি।</p></div>
+      <div class="card"><div class="ico">🚫</div><h3>চিনি-কেমিক্যাল নেই</h3><p>হাইড্রোজ, রং বা চিনি মেশানো হয় না। শুধু খাঁটি রস।</p></div>
+      <div class="card"><div class="ico">🔥</div><h3>ঐতিহ্যবাহী জ্বাল</h3><p>মাটির চুলায়, লাকড়ির আগুনে ধীরে ধীরে জ্বাল দেওয়া।</p></div>
+      <div class="card"><div class="ico">📦</div><h3>নিরাপদ প্যাকিং</h3><p>ফুড-গ্রেড এয়ারটাইট প্যাকিং, সারাদেশে ডেলিভারি।</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="wrap">
+    <div class="head">
+      <h2>কিভাবে তৈরি হয় আমাদের গুড়</h2>
+      <p>ভোর রাত থেকে আপনার হাতে পৌঁছানো পর্যন্ত</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div><h3>রস সংগ্রহ</h3><p>শীতের ভোরে গাছি খেজুর গাছ থেকে টাটকা রস নামান।</p></div></div>
+      <div class="step"><div><h3>ছেঁকে নেওয়া</h3><p>পরিষ্কার কাপড়ে ছেঁকে ময়লা ও অশুদ্ধতা দূর করা হয়।</p></div></div>
+      <div class="step"><div><h3>জ্বাল দেওয়া</h3><p>বড় তাফালে ঘণ্টার পর ঘণ্টা জ্বাল দিয়ে ঘন করা হয়।</p></div></div>
+      <div class="step"><div><h3>প্যাকিং ও ডেলিভারি</h3><p>ঠান্ডা করে প্যাক করে সরাসরি আপনার ঠিকানায়।</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="head"><h2>সাধারণ প্রশ্নোত্তর</h2></div>
+    <div class="faq">
+      <details><summary>সর্বনিম্ন কত কেজি অর্ডার করতে হবে?</summary><p>প্রতিটি গুড় সর্বনিম্ন ১ কেজি করে অর্ডার করতে হবে। চাইলে একাধিক গুড় একসাথে নিতে পারেন।</p></details>
+      <details><summary>টাকা কীভাবে দেব?</summary><p>সম্পূর্ণ ক্যাশ অন ডেলিভারি। অর্ডারের সময় কোনো টাকা দিতে হবে না — ডেলিভারিম্যানের কাছ থেকে পণ্য বুঝে নিয়ে তারপর টাকা দেবেন।</p></details>
+      <details><summary>গুড় খাঁটি কিনা বুঝব কিভাবে?</summary><p>খাঁটি খেজুর গুড়ের রং গাঢ় বাদামি, ঘ্রাণ তীব্র এবং স্বাদে হালকা নোনতা ভাব থাকে। পণ্য হাতে পেয়ে দেখে-শুনে তারপর টাকা দিতে পারবেন।</p></details>
+      <details><summary>ডেলিভারি কত দিনে পাব?</summary><p>ঢাকার ভেতরে সাধারণত ১–২ দিন, ঢাকার বাইরে ২–৪ দিনের মধ্যে কুরিয়ারে পৌঁছে যায়।</p></details>
+      <details><summary>গুড় কতদিন ভালো থাকে?</summary><p>এয়ারটাইট পাত্রে শুকনো ও ঠান্ডা জায়গায় রাখলে পাটালি কয়েক মাস ভালো থাকে। ঝোলা ও বীজ গুড় ফ্রিজে রাখা ভালো।</p></details>
+      <details><summary>পণ্যে সমস্যা থাকলে কী হবে?</summary><p>ডেলিভারির সময় পণ্য দেখে নিন। কোনো সমস্যা থাকলে সাথে সাথে আমাদের পেজে জানান, আমরা বদলে দেব।</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img class="foot-logo" src="images/logo.png" alt="কৃষকের ঝুলি লোগো" width="96" height="96" loading="lazy">
+  <div class="brand"><span><span class="g">কৃষকের</span> ঝুলি</span></div>
+  <p>কৃষকের হাত থেকে আপনার ঘরে — খাঁটি গুড়, খাঁটি ভালোবাসা।</p>
+  <p style="margin-top:12px">📞 <a href="tel:+8801345998174" style="color:#f5b553;font-weight:600">০১৩৪৫৯৯৮১৭৪</a> · 💵 ক্যাশ অন ডেলিভারি</p>
+  <p style="margin-top:10px;font-size:13px;opacity:.7">© ২০২৬ কৃষকের ঝুলি</p>
+</footer>
+
+<!-- ভাসমান অর্ডার বাটন -->
+<nav class="bar" aria-label="অর্ডার">
+  <a class="btn btn-primary go" href="#order"><span><small id="barInfo">কোনো গুড় বাছাই হয়নি</small><b>🛒 অর্ডার করুন</b></span><b id="barTotal">→</b></a>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<!-- অর্ডার কনফার্মেশন -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+  <div class="sheet">
+    <div class="check">✓</div>
+    <h3 id="mTitle">অর্ডার প্রায় সম্পন্ন!</h3>
+    <p class="mid">অর্ডার নং: <b id="mId"></b></p>
+    <div class="msum" id="mSum"></div>
+    <p class="mhint" id="mHint">👇 নিচের যেকোনো একটি বাটনে চাপ দিয়ে অর্ডারটি আমাদের কাছে পাঠিয়ে দিন। আমরা কল করে কনফার্ম করব।</p>
+    <div class="msend">
+      <a class="btn wa" id="sendWa" target="_blank" rel="noopener">হোয়াটসঅ্যাপে পাঠান</a>
+      <a class="btn sms" id="sendSms">SMS এ পাঠান</a>
+      <button class="btn msg" id="sendMsg" type="button">মেসেঞ্জারে পাঠান</button>
+    </div>
+    <a class="mcall" href="tel:+8801345998174">📞 অথবা সরাসরি কল করুন: ০১৩৪৫৯৯৮১৭৪</a>
+    <button class="mclose" id="mClose" type="button" aria-label="বন্ধ করুন">✕</button>
+  </div>
+</div>
+
+<script>
+  // ===== পণ্য ও দাম এখানে বদলান =====
+  const PRODUCTS = [
+    { id:"gol",   name:"গোল পাটালি",   price:550, old:650, img:"images/gol-patali.webp?v=2",  badge:"বেস্ট সেলার", hot:true,
+      desc:"হাতে গড়া গোল পাটালি — শক্ত, দানাদার আর ঘ্রাণে ভরপুর। পিঠা-পায়েস আর চায়ের সাথে অসাধারণ।" },
+    { id:"beej",  name:"বীজ গুড়",      price:500, old:580, img:"images/beej-gur.webp",    badge:"নতুন",
+      desc:"নরম দানাদার বীজ গুড় — মুখে দিলেই গলে যায়। পায়েস, সন্দেশ আর মিষ্টির জন্য সেরা।" },
+    { id:"foil",  name:"ফয়েল পাটালি",  price:520, old:600, img:"images/foil-patali.webp?v=2",
+      desc:"ফয়েল ট্রেতে জমানো নরম পাটালি — কাটতে সহজ, সংরক্ষণে সুবিধা, উপহারেও দারুণ।" },
+    { id:"jhola", name:"ঝোলা গুড়",     price:480, old:550, img:"images/jhola-gur.svg",
+      desc:"তরল ঝোলা গুড় — রুটি, মুড়ি আর শীতের পিঠায় ঢেলে খাওয়ার আসল মজা।" },
+  ];
+  const MIN_KG = 1;
+
+  const bn = n => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+  const $ = id => document.getElementById(id);
+  const area = $("area");
+  const qty = Object.fromEntries(PRODUCTS.map(p => [p.id, 0]));
+
+  // product cards
+  $("productGrid").innerHTML = PRODUCTS.map(p => `
+    <article class="prod">
+      <div class="prod-img">
+        ${p.badge ? `<span class="badge${p.hot ? " hot" : ""}">${p.badge}</span>` : ""}
+        <img src="${p.img}" alt="খেজুরের ${p.name}" loading="lazy" width="600" height="600">
+      </div>
+      <div class="prod-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="min">⚖️ সর্বনিম্ন ১ কেজি</div>
+        <div class="price"><b>৳${bn(p.price)}</b>${p.old ? `<s>৳${bn(p.old)}</s>` : ""}<small>/ কেজি</small></div>
+        <div class="add" data-id="${p.id}"></div>
+      </div>
+    </article>`).join("");
+
+  // order form rows
+  $("items").innerHTML = PRODUCTS.map(p => `
+    <div class="item" data-id="${p.id}">
+      <img src="${p.img}" alt="" loading="lazy">
+      <div class="info"><b>${p.name}</b><small>৳${bn(p.price)} / কেজি</small></div>
+      <div class="stepper">
+        <button type="button" data-d="-1" aria-label="${p.name} কমান">−</button>
+        <output>—</output>
+        <button type="button" data-d="1" aria-label="${p.name} বাড়ান">+</button>
+      </div>
+    </div>`).join("");
+
+  function renderCard(id){
+    const box = document.querySelector(`.add[data-id="${id}"]`);
+    box.innerHTML = qty[id]
+      ? `<div class="qty"><button type="button" data-d="-1" aria-label="কমান">−</button><output>${bn(qty[id])} কেজি</output><button type="button" data-d="1" aria-label="বাড়ান">+</button></div>`
+      : `<button type="button" class="btn btn-primary" data-d="1">🛒 যোগ করুন</button>`;
+  }
+
+  function setQty(id, v){
+    qty[id] = v < MIN_KG ? 0 : v;           // ১ কেজির কম হলে বাদ
+    const row = document.querySelector(`.item[data-id="${id}"]`);
+    row.classList.toggle("on", qty[id] > 0);
+    row.querySelector("output").textContent = qty[id] ? bn(qty[id]) + " কেজি" : "—";
+    renderCard(id);
+    calc();
+  }
+
+  function onStep(e, sel){
+    const b = e.target.closest("button[data-d]"); if (!b) return;
+    const id = b.closest(sel).dataset.id;
+    const was = qty[id];
+    setQty(id, qty[id] + (+b.dataset.d));
+    if (!was && qty[id]) toast(`🛒 ${PRODUCTS.find(p=>p.id===id).name} ১ কেজি যোগ হয়েছে`);
+  }
+  $("items").addEventListener("click", e => onStep(e, ".item"));
+  $("productGrid").addEventListener("click", e => onStep(e, ".add"));
+
+  function calc(){
+    const kg = PRODUCTS.reduce((s,p) => s + qty[p.id], 0);
+    const sub = PRODUCTS.reduce((s,p) => s + p.price * qty[p.id], 0);
+    const ship = sub ? +area.value : 0;
+    $("sub").textContent = "৳" + bn(sub);
+    $("ship").textContent = "৳" + bn(ship);
+    $("total").textContent = "৳" + bn(sub + ship);
+    $("barInfo").textContent = kg ? `${bn(kg)} কেজি গুড় বাছাই করা হয়েছে` : "কোনো গুড় বাছাই হয়নি";
+    $("barTotal").textContent = kg ? "৳" + bn(sub + ship) : "→";
+    if (sub) $("err").style.display = "none";
+    return sub + ship;
+  }
+  area.addEventListener("change", calc);
+  PRODUCTS.forEach(p => renderCard(p.id));
+  calc();
+
+  // অর্ডার সেকশনে পৌঁছালে ভাসমান বাটন লুকাও
+  const bar = document.querySelector(".bar");
+  new IntersectionObserver(([en]) => bar.classList.toggle("hide", en.isIntersecting), {threshold:.15}).observe($("order"));
+
+  let tt;
+  function toast(msg){
+    const t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+
+  // ===== ক্যাশ অন ডেলিভারি অর্ডার =====
+  const SHOP_PHONE = "8801345998174";   // অর্ডার যাবে এই নম্বরে (হোয়াটসঅ্যাপ / SMS)
+  // Google Sheet এর Web app লিংক এখানে বসান (ORDER-SHEET-SETUP.md দেখুন)। খালি থাকলে শুধু হোয়াটসঅ্যাপ/SMS/মেসেঞ্জার কাজ করবে।
+  const ORDER_SHEET_URL = "";
+  let savedOrder = false;
+
+  async function saveToSheet(data){
+    if (!ORDER_SHEET_URL) return false;
+    try {
+      const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 12000);
+      await fetch(ORDER_SHEET_URL, { method:"POST", mode:"no-cors", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body: JSON.stringify(data), signal: ctrl.signal });
+      clearTimeout(t);
+      return true;
+    } catch(_) { return false; }
+  }
+  const en = t => String(t).replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d));
+  const cleanPhone = v => {
+    let n = en(v).replace(/[^0-9]/g, "");
+    if (n.startsWith("880")) n = n.slice(2);
+    if (n.length === 10 && n.startsWith("1")) n = "0" + n;
+    return n;
+  };
+  const validPhone = v => /^01[3-9]\d{8}$/.test(cleanPhone(v));
+  ["name","phone","addr"].forEach(id => $(id).addEventListener("input", () => $(id).classList.remove("bad")));
+
+  $("orderForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const chosen = PRODUCTS.filter(p => qty[p.id] >= MIN_KG);
+    if (!chosen.length) { $("err").style.display = "block"; $("items").scrollIntoView({block:"center"}); return; }
+    for (const id of ["name","phone","addr"]) {
+      const el = $(id);
+      if (!el.value.trim()) { el.classList.add("bad"); el.focus(); toast("⚠️ " + el.previousElementSibling.textContent + " লিখুন"); return; }
+    }
+    if (!validPhone($("phone").value)) { $("phone").classList.add("bad"); $("phone").focus(); toast("⚠️ সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন"); return; }
+
+    const sub = chosen.reduce((s,p) => s + p.price * qty[p.id], 0);
+    const ship = +area.value, total = sub + ship;
+    const d = new Date();
+    const oid = "KJ" + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0") + "-" + (Math.floor(Math.random()*9000) + 1000);
+    const lines = chosen.map(p => `• ${p.name} — ${bn(qty[p.id])} কেজি × ৳${bn(p.price)} = ৳${bn(p.price*qty[p.id])}`).join("\n");
+    const text =
+`🛒 নতুন অর্ডার — কৃষকের ঝুলি
+অর্ডার নং: ${oid}
+নাম: ${$("name").value.trim()}
+মোবাইল: ${cleanPhone($("phone").value)}
+${lines}
+ডেলিভারি চার্জ: ৳${bn(ship)} (${area.selectedOptions[0].text.split(" — ")[0]})
+ঠিকানা: ${$("addr").value.trim()}
+পেমেন্ট: ক্যাশ অন ডেলিভারি
+ডেলিভারিতে দেব: ৳${bn(total)}`;
+
+    // Google Sheet এ অর্ডার জমা
+    const btn = $("orderForm").querySelector('button[type="submit"]');
+    const btnText = btn.innerHTML;
+    if (ORDER_SHEET_URL) { btn.disabled = true; btn.innerHTML = "⏳ অর্ডার পাঠানো হচ্ছে..."; }
+    savedOrder = await saveToSheet({
+      orderId: oid,
+      name: $("name").value.trim(),
+      phone: cleanPhone($("phone").value),
+      items: chosen.map(p => `${p.name} — ${qty[p.id]} কেজি × ৳${p.price} = ৳${p.price*qty[p.id]}`).join("\n"),
+      kg: chosen.reduce((s,p) => s + qty[p.id], 0),
+      subtotal: sub, delivery: ship, total,
+      area: area.selectedOptions[0].text.split(" — ")[0],
+      address: $("addr").value.trim(),
+      website: $("website").value
+    });
+    btn.disabled = false; btn.innerHTML = btnText;
+
+    $("mTitle").textContent = savedOrder ? "অর্ডার গ্রহণ করা হয়েছে!" : "অর্ডার প্রায় সম্পন্ন!";
+    $("mHint").textContent = savedOrder
+      ? "✅ আপনার অর্ডার আমাদের কাছে পৌঁছে গেছে। শীঘ্রই কল করে কনফার্ম করব। চাইলে নিচের বাটনে হোয়াটসঅ্যাপেও জানাতে পারেন।"
+      : "👇 নিচের যেকোনো একটি বাটনে চাপ দিয়ে অর্ডারটি আমাদের কাছে পাঠিয়ে দিন। আমরা কল করে কনফার্ম করব।";
+
+    $("mId").textContent = oid;
+    $("mSum").innerHTML = chosen.map(p => `<div class="row"><span>${p.name} × ${bn(qty[p.id])} কেজি</span><span>৳${bn(p.price*qty[p.id])}</span></div>`).join("")
+      + `<div class="row"><span>ডেলিভারি চার্জ</span><span>৳${bn(ship)}</span></div>`
+      + `<div class="row tot"><span>💵 ডেলিভারিতে দেবেন</span><span>৳${bn(total)}</span></div>`;
+    const enc = encodeURIComponent(text);
+    $("sendWa").href  = `https://wa.me/${SHOP_PHONE}?text=${enc}`;
+    $("sendSms").href = `sms:+${SHOP_PHONE}?&body=${enc}`;
+    $("sendMsg").onclick = async () => {
+      try { await navigator.clipboard.writeText(text); toast("✅ অর্ডার কপি হয়েছে — মেসেঞ্জারে পেস্ট করে পাঠান"); } catch(_) {}
+      setTimeout(() => window.open("https://m.me/61589148507129", "_blank"), 700);
+    };
+    $("modal").hidden = false;
+    document.body.style.overflow = "hidden";
+  });
+
+  function closeModal(){
+    $("modal").hidden = true; document.body.style.overflow = "";
+    if (savedOrder) {   // অর্ডার জমা হলে ফর্ম খালি করো, যাতে দুবার না যায়
+      savedOrder = false;
+      PRODUCTS.forEach(p => setQty(p.id, 0));
+      ["name","phone","addr"].forEach(id => $(id).value = "");
+    }
+  }
+  $("mClose").addEventListener("click", closeModal);
+  $("modal").addEventListener("click", e => { if (e.target === $("modal")) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal").hidden) closeModal(); });
+</script>
+</body>
+</html>

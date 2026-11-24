@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0" stop-color="#fbe7cf"/><stop offset="1" stop-color="#eebf8c"/>
+    </radialGradient>
+    <linearGradient id="gur" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a2f0c"/><stop offset=".45" stop-color="#b8561a"/><stop offset=".7" stop-color="#cf6d24"/><stop offset="1" stop-color="#7a2f0c"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity=".05"/><stop offset=".25" stop-color="#fff" stop-opacity=".45"/><stop offset=".35" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+    </linearGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a5a2e"/><stop offset="1" stop-color="#5e3216"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="900" height="900" fill="url(#bg)"/>
+  <ellipse cx="430" cy="760" rx="300" ry="40" fill="#6b3a14" opacity=".28" filter="url(#blur)"/>
+  <!-- jar -->
+  <rect x="215" y="250" width="330" height="500" rx="46" fill="url(#gur)"/>
+  <rect x="215" y="250" width="330" height="80" rx="30" fill="#e2a25d" opacity=".55"/>
+  <g fill="#f3c27a" opacity=".55">
+    <circle cx="280" cy="420" r="6"/><circle cx="330" cy="520" r="4"/><circle cx="470" cy="460" r="5"/><circle cx="420" cy="610" r="4"/><circle cx="300" cy="660" r="5"/><circle cx="500" cy="580" r="4"/>
+  </g>
+  <rect x="215" y="250" width="330" height="500" rx="46" fill="url(#glass)"/>
+  <!-- lid -->
+  <rect x="228" y="190" width="304" height="78" rx="16" fill="#eef1f2"/>
+  <rect x="228" y="190" width="304" height="78" rx="16" fill="url(#glass)"/>
+  <g stroke="#cfd6d8" stroke-width="3"><line x1="240" y1="214" x2="520" y2="214"/><line x1="240" y1="238" x2="520" y2="238"/></g>
+  <!-- label -->
+  <rect x="250" y="420" width="260" height="150" rx="18" fill="#fbf3e4"/>
+  <rect x="262" y="432" width="236" height="126" rx="12" fill="none" stroke="#2f6b1e" stroke-width="3"/>
+  <text x="380" y="485" text-anchor="middle" font-family="Hind Siliguri, sans-serif" font-size="40" font-weight="700" fill="#5c2f10">ঝোলা গুড়</text>
+  <text x="380" y="530" text-anchor="middle" font-family="Hind Siliguri, sans-serif" font-size="24" fill="#2f6b1e">খাঁটি খেজুরের</text>
+  <!-- bowl + spoon -->
+  <path d="M560 640h230c0 70-50 115-115 115s-115-45-115-115z" fill="url(#bowl)"/>
+  <ellipse cx="675" cy="640" rx="115" ry="26" fill="#b85a1c"/>
+  <ellipse cx="675" cy="638" rx="98" ry="18" fill="#d47a2c"/>
+  <path d="M600 330 L760 455" stroke="#a8743f" stroke-width="20" stroke-linecap="round"/>
+  <ellipse cx="610" cy="340" rx="58" ry="34" transform="rotate(38 610 340)" fill="#b88250"/>
+  <path d="M598 360 C 596 430, 610 520, 640 628" stroke="#c4631f" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <path d="M600 362 C 600 430, 612 520, 640 628" stroke="#f0a35a" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/>
+</svg>
