@@ -1,0 +1,40 @@
+# GitHub এ main ব্রাঞ্চে push করলেই ওয়েবসাইট Cloudflare Pages এ আপডেট হবে।
+# দরকার: GitHub repo তে CLOUDFLARE_API_TOKEN secret, আর CLOUDFLARE_ACCOUNT_ID variable।
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build site folder
+        run: |
+          mkdir dist
+          cp index.html dist/
+          cp -r images dist/
+
+      - name: Token missing
+        if: env.CF_TOKEN == ''
+        run: echo "::warning::CLOUDFLARE_API_TOKEN secret নেই — Cloudflare এ আপলোড বাদ দেওয়া হলো।"
+
+      - name: Deploy to Cloudflare Pages
+        if: env.CF_TOKEN != ''
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=krishoker-jhuli --branch=main --commit-dirty=true
