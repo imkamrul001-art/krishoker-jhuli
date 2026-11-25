@@ -1,0 +1,34 @@
+# প্রতিদিন সকাল ৯টায় (বাংলাদেশ সময়) Facebook পেজে একটি পোস্ট।
+# FB_PAGE_TOKEN secret না থাকলে কিছুই পোস্ট হবে না, শুধু আজকের পোস্ট দেখাবে।
+name: Facebook daily post
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # 03:00 UTC = সকাল ৯টা ঢাকা
+  workflow_dispatch:
+    inputs:
+      post_index:
+        description: "নির্দিষ্ট পোস্ট নম্বর (১–৩০), খালি রাখলে আজকের পোস্ট"
+        required: false
+      dry_run:
+        description: "শুধু দেখাও, পোস্ট করো না"
+        type: boolean
+        default: true
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Post to Facebook
+        env:
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          FB_PAGE_ID: ${{ vars.FB_PAGE_ID }}
+          POST_INDEX: ${{ inputs.post_index }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: node social/post.mjs
