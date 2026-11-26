@@ -24,7 +24,7 @@ jobs:
       - name: Build site folder
         run: |
           mkdir dist
-          cp index.html dist/
+          cp index.html privacy.html dist/
           cp -r images dist/
 
       - name: Token missing

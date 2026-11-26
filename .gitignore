@@ -6,3 +6,6 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# hand-post drafts (local only)
+Facebook Posts/
