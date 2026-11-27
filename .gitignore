@@ -9,3 +9,6 @@
 
 # hand-post drafts (local only)
 Facebook Posts/
+
+# build output
+dist/

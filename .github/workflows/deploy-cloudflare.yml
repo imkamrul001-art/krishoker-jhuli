@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir dist
           cp index.html privacy.html dist/
-          cp -r images dist/
+          cp -r images admin dist/
 
       - name: Token missing
         if: env.CF_TOKEN == ''

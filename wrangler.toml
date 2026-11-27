@@ -1,0 +1,8 @@
+name = "krishoker-jhuli"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "krishoker-jhuli-db"
+database_id = "f80d5a0e-97a0-4e7d-838d-055173003af3"

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#5c2f10">
+<title>অ্যাডমিন — কৃষকের ঝুলি</title>
+<link rel="icon" href="/images/logo-sm.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f1e8; --surface:#fff; --ink:#2b1d12; --muted:#76604d; --line:#eadcc8;
+    --gur:#8a4b1c; --gur-deep:#5c2f10; --honey:#e0962f; --green:#2f6b1e;
+    --s-new:#c2410c; --s-confirmed:#1d4ed8; --s-shipped:#7c3aed; --s-delivered:#2f6b1e; --s-cancelled:#78716c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Baloo Da 2",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;padding-bottom:80px}
+  button,input,select,textarea{font-family:inherit;font-size:15px}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 14px}
+
+  header{background:var(--gur-deep);color:#fff;position:sticky;top:0;z-index:20}
+  .top{display:flex;align-items:center;gap:10px;height:58px}
+  .top img{width:38px;height:38px;border-radius:50%;background:#fff}
+  .top h1{font-size:18px;font-weight:700;flex:1;line-height:1.1}
+  .top h1 small{display:block;font-weight:400;font-size:12px;opacity:.8}
+  .top a.site{font-size:13px;color:#ffd9a3;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:999px}
+  .tabs{display:flex;gap:4px}
+  .tabs button{flex:1;background:none;border:0;color:#f3dcc0;padding:10px 4px;font-weight:600;border-bottom:3px solid transparent;cursor:pointer}
+  .tabs button.on{color:#fff;border-color:var(--honey)}
+
+  main{padding-top:14px}
+  .panel{display:none}.panel.on{display:block}
+
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .stat b{display:block;font-size:24px;color:var(--gur);line-height:1.2}
+  .stat span{color:var(--muted);font-size:13px}
+  .stat.alert b{color:var(--s-new)}
+
+  .toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .toolbar input{flex:1;min-width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff}
+  .btn{border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;background:var(--gur);color:#fff;white-space:nowrap}
+  .btn.ghost{background:#fff;color:var(--gur);border:1.5px solid var(--line)}
+  .btn:disabled{opacity:.5}
+  .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
+  .chips button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer}
+  .chips button.on{background:var(--gur-deep);border-color:var(--gur-deep);color:#fff}
+
+  .order{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--c,var(--line));border-radius:14px;padding:12px;margin-bottom:10px}
+  .o-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+  .o-id{font-weight:700;color:var(--gur-deep)}
+  .o-time{color:var(--muted);font-size:12.5px}
+  .o-total{font-weight:700;font-size:18px;color:var(--gur);text-align:right;white-space:nowrap}
+  .o-total small{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
+  .o-who{margin:6px 0 2px;font-weight:600}
+  .o-addr{color:var(--muted);font-size:14px}
+  .o-items{background:#fbf5ec;border-radius:10px;padding:6px 10px;margin:8px 0;font-size:14px}
+  .o-items div{display:flex;justify-content:space-between;gap:8px}
+  .o-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .o-actions a{text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 11px;border-radius:10px;background:#f3ebe0;color:var(--gur-deep)}
+  .o-actions a.wa{background:#e4f8ea;color:#137a3b}
+  .o-actions select{flex:1;min-width:150px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--c,var(--line));font-weight:700;color:var(--c,var(--ink));background:#fff}
+  .o-note{display:flex;gap:6px;margin-top:8px}
+  .o-note input{flex:1;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px}
+  .o-note button{padding:7px 12px}
+  .empty{text-align:center;color:var(--muted);padding:40px 10px;background:#fff;border-radius:14px;border:1px dashed var(--line)}
+
+  .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .box h3{font-size:16px;color:var(--gur-deep);margin-bottom:10px}
+  .bar{display:grid;grid-template-columns:76px 1fr 70px;gap:8px;align-items:center;font-size:13px;margin-bottom:6px}
+  .bar i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--honey),var(--gur))}
+  .bar span:last-child{text-align:right;color:var(--muted)}
+
+  .prod{display:grid;grid-template-columns:1fr;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+  .prod h4{font-size:17px;color:var(--gur-deep)}
+  .prod .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .prod label{font-size:13px;color:var(--muted);font-weight:600}
+  .prod input[type=number]{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;margin-top:2px}
+  .switch{display:flex;align-items:center;gap:8px;font-weight:600;cursor:pointer}
+  .switch input{width:20px;height:20px;accent-color:var(--green)}
+
+  .toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,140px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;transition:transform .25s;z-index:50;max-width:calc(100% - 28px);text-align:center}
+  .toast.show{transform:translate(-50%,0)}
+  .toast.err{background:#b3261e}
+  .muted{color:var(--muted);font-size:13px}
+
+  @media (min-width:760px){
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .orders{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .orders .order{margin:0}
+    .prod{grid-template-columns:1.2fr 2fr auto;align-items:end}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <img src="/images/logo-sm.png" alt="">
+    <h1>কৃষকের ঝুলি<small>অ্যাডমিন ড্যাশবোর্ড</small></h1>
+    <a class="site" href="/" target="_blank" rel="noopener">ওয়েবসাইট ↗</a>
+  </div>
+  <div class="wrap tabs">
+    <button data-tab="orders" class="on">📦 অর্ডার</button>
+    <button data-tab="stats">📊 হিসাব</button>
+    <button data-tab="products">🏷️ দাম ও স্টক</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- অর্ডার -->
+  <section class="panel on" id="orders">
+    <div class="cards" id="cards"></div>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="🔍 নাম, নম্বর বা অর্ডার নং দিয়ে খুঁজুন">
+      <button class="btn ghost" id="refresh">↻ রিফ্রেশ</button>
+      <button class="btn ghost" id="csv">⬇ CSV</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="orders" id="list"></div>
+  </section>
+
+  <!-- হিসাব -->
+  <section class="panel" id="stats">
+    <div class="box"><h3>গত ১৪ দিনের অর্ডার</h3><div id="days"></div></div>
+    <div class="box"><h3>কোন গুড় কত কেজি বিক্রি (বাতিল বাদে)</h3><div id="byProduct"></div></div>
+    <div class="box"><h3>সারাংশ</h3><div id="summary"></div></div>
+  </section>
+
+  <!-- দাম ও স্টক -->
+  <section class="panel" id="products">
+    <p class="muted" style="margin-bottom:10px">এখানে দাম বা স্টক বদলালে ওয়েবসাইটে ১ মিনিটের মধ্যে দেখাবে। নতুন অর্ডারের হিসাব নতুন দামে হবে।</p>
+    <div id="prodList"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STATUS = {
+    new:       { label: "🆕 নতুন",            c: "var(--s-new)" },
+    confirmed: { label: "📞 কনফার্ম",          c: "var(--s-confirmed)" },
+    shipped:   { label: "🚚 পাঠানো হয়েছে",     c: "var(--s-shipped)" },
+    delivered: { label: "✅ ডেলিভারি সম্পন্ন",  c: "var(--s-delivered)" },
+    cancelled: { label: "❌ বাতিল",            c: "var(--s-cancelled)" },
+  };
+  const $ = id => document.getElementById(id);
+  const bn = n => String(n ?? 0).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+  const tk = n => "৳" + bn(Math.round(n || 0).toLocaleString("en-IN"));
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  const when = iso => new Date(iso).toLocaleString("bn-BD", { timeZone: "Asia/Dhaka", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+
+  let tt;
+  function toast(msg, err) {
+    const t = $("toast"); t.textContent = msg; t.className = "toast show" + (err ? " err" : "");
+    clearTimeout(tt); tt = setTimeout(() => t.className = "toast", 2400);
+  }
+  async function api(path, opts = {}) {
+    const r = await fetch("/api/admin/" + path, { ...opts, headers: { "content-type": "application/json", ...(opts.headers || {}) } });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || data.ok === false) throw new Error(data.error || ("সমস্যা হয়েছে (" + r.status + ")"));
+    return data;
+  }
+
+  // ---------- tabs ----------
+  document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+    document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === b.dataset.tab));
+    if (b.dataset.tab === "stats") loadStats();
+    if (b.dataset.tab === "products") loadProducts();
+  });
+
+  // ---------- orders ----------
+  let orders = [], filter = "all";
+
+  async function loadOrders(silent) {
+    try {
+      const [o, s] = await Promise.all([api("orders?limit=500"), api("stats")]);
+      const before = orders.filter(x => x.status === "new").length;
+      orders = o.orders;
+      renderCards(s.stats);
+      renderOrders();
+      const after = orders.filter(x => x.status === "new").length;
+      if (silent && after > before) toast("🔔 নতুন অর্ডার এসেছে!");
+    } catch (e) { if (!silent) toast(e.message, true); }
+  }
+
+  function renderCards(st) {
+    $("cards").innerHTML = `
+      <div class="stat alert"><b>${bn(st.pending || 0)}</b><span>নতুন (কল করা বাকি)</span></div>
+      <div class="stat"><b>${bn(st.today_orders || 0)}</b><span>আজকের অর্ডার</span></div>
+      <div class="stat"><b>${bn(st.in_progress || 0)}</b><span>কনফার্ম / পথে</span></div>
+      <div class="stat"><b>${tk(st.month_sales)}</b><span>এই মাসের বিক্রি (ডেলিভারি সম্পন্ন)</span></div>`;
+  }
+
+  function renderOrders() {
+    const counts = { all: orders.length };
+    for (const o of orders) counts[o.status] = (counts[o.status] || 0) + 1;
+    $("chips").innerHTML = [["all", "সব"], ...Object.entries(STATUS).map(([k, v]) => [k, v.label])]
+      .map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l} (${bn(counts[k] || 0)})</button>`).join("");
+
+    const q = $("q").value.trim().toLowerCase();
+    const list = orders.filter(o => (filter === "all" || o.status === filter) &&
+      (!q || [o.id, o.name, o.phone, o.address].join(" ").toLowerCase().includes(q)));
+
+    $("list").innerHTML = list.length ? list.map(o => {
+      const st = STATUS[o.status] || STATUS.new;
+      const msg = encodeURIComponent(`আসসালামু আলাইকুম ${o.name}, কৃষকের ঝুলি থেকে বলছি। আপনার অর্ডার (${o.id}) — মোট ${tk(o.total)}। অর্ডারটি কনফার্ম করছি।`);
+      return `
+      <article class="order" style="--c:${st.c}" data-id="${esc(o.id)}">
+        <div class="o-head">
+          <div><div class="o-id">${esc(o.id)}</div><div class="o-time">${when(o.created_at)}</div></div>
+          <div class="o-total">${tk(o.total)}<small>ক্যাশ অন ডেলিভারি</small></div>
+        </div>
+        <div class="o-who">👤 ${esc(o.name)} · ${esc(o.phone)}</div>
+        <div class="o-addr">📍 ${esc(o.area)} — ${esc(o.address)}</div>
+        <div class="o-items">
+          ${o.items.map(i => `<div><span>${esc(i.name)} × ${bn(i.kg)} কেজি</span><span>${tk(i.amount)}</span></div>`).join("")}
+          <div class="muted"><span>ডেলিভারি চার্জ</span><span>${tk(o.delivery)}</span></div>
+        </div>
+        <div class="o-actions">
+          <a href="tel:${esc(o.phone)}">📞 কল</a>
+          <a class="wa" href="https://wa.me/88${esc(o.phone)}?text=${msg}" target="_blank" rel="noopener">💬 হোয়াটসঅ্যাপ</a>
+          <select data-status aria-label="স্ট্যাটাস">
+            ${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${k === o.status ? "selected" : ""}>${v.label}</option>`).join("")}
+          </select>
+        </div>
+        <div class="o-note">
+          <input data-note value="${esc(o.note)}" placeholder="নোট (যেমন: কুরিয়ার ট্র্যাকিং নং)">
+          <button class="btn ghost" data-save-note>সেভ</button>
+        </div>
+      </article>`;
+    }).join("") : `<div class="empty">${orders.length ? "এই ফিল্টারে কোনো অর্ডার নেই" : "এখনো কোনো অর্ডার আসেনি 🌱"}</div>`;
+  }
+
+  $("chips").onclick = e => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; renderOrders(); } };
+  $("q").oninput = renderOrders;
+  $("refresh").onclick = () => loadOrders();
+
+  $("list").addEventListener("change", async e => {
+    const sel = e.target.closest("[data-status]"); if (!sel) return;
+    const id = sel.closest(".order").dataset.id;
+    try {
+      await api("orders", { method: "PATCH", body: JSON.stringify({ id, status: sel.value }) });
+      const o = orders.find(x => x.id === id); o.status = sel.value;
+      toast("✅ স্ট্যাটাস বদলানো হয়েছে");
+      renderOrders(); api("stats").then(s => renderCards(s.stats)).catch(() => {});
+    } catch (err) { toast(err.message, true); }
+  });
+  $("list").addEventListener("click", async e => {
+    const b = e.target.closest("[data-save-note]"); if (!b) return;
+    const card = b.closest(".order"), id = card.dataset.id, note = card.querySelector("[data-note]").value;
+    b.disabled = true;
+    try {
+      await api("orders", { method: "PATCH", body: JSON.stringify({ id, note }) });
+      orders.find(x => x.id === id).note = note; toast("✅ নোট সেভ হয়েছে");
+    } catch (err) { toast(err.message, true); }
+    b.disabled = false;
+  });
+
+  $("csv").onclick = () => {
+    const head = ["অর্ডার নং", "সময়", "নাম", "মোবাইল", "এলাকা", "ঠিকানা", "পণ্য", "মোট কেজি", "পণ্যের দাম", "ডেলিভারি", "মোট", "স্ট্যাটাস", "নোট"];
+    const rows = orders.map(o => [o.id, when(o.created_at), o.name, o.phone, o.area, o.address,
+      o.items.map(i => `${i.name} ${i.kg}কেজি`).join("; "), o.kg, o.subtotal, o.delivery, o.total,
+      (STATUS[o.status] || {}).label || o.status, o.note]);
+    const csv = "﻿" + [head, ...rows].map(r => r.map(v => `"${String(v ?? "").replace(/"/g, '""')}"`).join(",")).join("\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    a.download = `krishoker-jhuli-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click(); URL.revokeObjectURL(a.href);
+  };
+
+  // ---------- stats ----------
+  async function loadStats() {
+    try {
+      const { stats: st, byProduct, days } = await api("stats");
+      const maxD = Math.max(1, ...days.map(d => d.orders));
+      $("days").innerHTML = days.length ? days.map(d => `
+        <div class="bar"><span>${new Date(d.day).toLocaleDateString("bn-BD", { day: "numeric", month: "short" })}</span>
+        <i style="width:${Math.max(4, d.orders / maxD * 100)}%"></i><span>${bn(d.orders)}টি · ${tk(d.amount)}</span></div>`).join("")
+        : `<p class="muted">এখনো কোনো অর্ডার নেই</p>`;
+      const entries = Object.entries(byProduct).sort((a, b) => b[1] - a[1]);
+      const maxK = Math.max(1, ...entries.map(e => e[1]));
+      $("byProduct").innerHTML = entries.length ? entries.map(([n, kg]) => `
+        <div class="bar"><span>${esc(n)}</span><i style="width:${Math.max(4, kg / maxK * 100)}%"></i><span>${bn(kg)} কেজি</span></div>`).join("")
+        : `<p class="muted">এখনো কোনো বিক্রি নেই</p>`;
+      $("summary").innerHTML = `
+        <div class="bar"><span>মোট অর্ডার</span><i style="width:0"></i><span>${bn(st.all_orders || 0)}টি</span></div>
+        <div class="bar"><span>এই মাসে</span><i style="width:0"></i><span>${bn(st.month_orders || 0)}টি</span></div>
+        <div class="bar"><span>আজ</span><i style="width:0"></i><span>${tk(st.today_amount)}</span></div>
+        <div class="bar"><span>সর্বমোট বিক্রি</span><i style="width:0"></i><span>${tk(st.total_sales)}</span></div>
+        <p class="muted" style="margin-top:6px">বিক্রি = যেসব অর্ডার "ডেলিভারি সম্পন্ন" করা হয়েছে।</p>`;
+    } catch (e) { toast(e.message, true); }
+  }
+
+  // ---------- products ----------
+  async function loadProducts() {
+    try {
+      const { products } = await api("products");
+      $("prodList").innerHTML = products.map(p => `
+        <div class="prod" data-id="${esc(p.id)}">
+          <div><h4>${esc(p.name)}</h4>
+            <label class="switch"><input type="checkbox" data-av ${p.available ? "checked" : ""}> স্টকে আছে</label></div>
+          <div class="row">
+            <label>দাম (৳ / কেজি)<input type="number" min="1" data-price value="${p.price}"></label>
+            <label>কাটা দাম (৳, ঐচ্ছিক)<input type="number" min="0" data-old value="${p.old_price ?? ""}"></label>
+          </div>
+          <button class="btn" data-save>সেভ করুন</button>
+        </div>`).join("");
+    } catch (e) { toast(e.message, true); }
+  }
+  $("prodList").addEventListener("click", async e => {
+    const b = e.target.closest("[data-save]"); if (!b) return;
+    const card = b.closest(".prod");
+    const body = {
+      id: card.dataset.id,
+      price: card.querySelector("[data-price]").value,
+      old_price: card.querySelector("[data-old]").value,
+      available: card.querySelector("[data-av]").checked,
+    };
+    b.disabled = true;
+    try { await api("products", { method: "PUT", body: JSON.stringify(body) }); toast("✅ সেভ হয়েছে"); }
+    catch (err) { toast(err.message, true); }
+    b.disabled = false;
+  });
+
+  loadOrders();
+  setInterval(() => { if (!document.hidden && $("orders").classList.contains("on")) loadOrders(true); }, 60000);
+</script>
+</body>
+</html>
