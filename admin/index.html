@@ -4,159 +4,360 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#5c2f10">
+<meta name="theme-color" content="#1f1812">
 <title>অ্যাডমিন — কৃষকের ঝুলি</title>
 <link rel="icon" href="/images/logo-sm.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f7f1e8; --surface:#fff; --ink:#2b1d12; --muted:#76604d; --line:#eadcc8;
-    --gur:#8a4b1c; --gur-deep:#5c2f10; --honey:#e0962f; --green:#2f6b1e;
-    --s-new:#c2410c; --s-confirmed:#1d4ed8; --s-shipped:#7c3aed; --s-delivered:#2f6b1e; --s-cancelled:#78716c;
+    --bg:#f5f3ef; --surface:#fff; --surface-2:#faf8f5; --line:#e9e3da; --line-2:#f1ece5;
+    --ink:#1c1917; --ink-2:#44403c; --muted:#78716c; --faint:#a8a29e;
+    --brand:#8a4b1c; --brand-2:#a85d26; --brand-soft:#f6ece1; --side:#1f1812; --side-ink:#d6cabd;
+    --s-new:#c2410c;       --s-new-bg:#fff1e7;
+    --s-confirmed:#1d4ed8; --s-confirmed-bg:#eaf0ff;
+    --s-shipped:#6d28d9;   --s-shipped-bg:#f1ebff;
+    --s-delivered:#15803d; --s-delivered-bg:#e8f6ed;
+    --s-cancelled:#57534e; --s-cancelled-bg:#efedeb;
+    --radius:14px; --shadow:0 1px 2px rgba(28,25,23,.05),0 4px 14px rgba(28,25,23,.05);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Baloo Da 2",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;padding-bottom:80px}
-  button,input,select,textarea{font-family:inherit;font-size:15px}
-  a{color:inherit}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 14px}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:"Hind Siliguri",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5}
+  button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+  a{color:inherit;text-decoration:none}
+  svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-  header{background:var(--gur-deep);color:#fff;position:sticky;top:0;z-index:20}
-  .top{display:flex;align-items:center;gap:10px;height:58px}
-  .top img{width:38px;height:38px;border-radius:50%;background:#fff}
-  .top h1{font-size:18px;font-weight:700;flex:1;line-height:1.1}
-  .top h1 small{display:block;font-weight:400;font-size:12px;opacity:.8}
-  .top a.site{font-size:13px;color:#ffd9a3;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:999px}
-  .tabs{display:flex;gap:4px}
-  .tabs button{flex:1;background:none;border:0;color:#f3dcc0;padding:10px 4px;font-weight:600;border-bottom:3px solid transparent;cursor:pointer}
-  .tabs button.on{color:#fff;border-color:var(--honey)}
+  /* ---------- shell ---------- */
+  .side{display:none}
+  .mtop{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--side);color:#fff}
+  .mtop img{width:34px;height:34px;border-radius:50%;background:#fff}
+  .mtop b{flex:1;font-size:16px;line-height:1.15}
+  .mtop b small{display:block;font-weight:400;font-size:12px;color:var(--side-ink)}
+  .icon-btn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer}
+  .mtop .icon-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff}
+  .icon-btn.spin svg{animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
-  main{padding-top:14px}
-  .panel{display:none}.panel.on{display:block}
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+  .bnav button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 9px;border:0;background:none;color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;position:relative}
+  .bnav button svg.i{width:22px;height:22px}
+  .bnav button.on{color:var(--brand)}
+  .bnav button.on::before{content:"";position:absolute;top:0;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--brand)}
+  .badge{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--s-new);color:#fff;font-size:11px;font-weight:700;display:inline-grid;place-items:center;line-height:1}
+  .bnav .badge{position:absolute;top:4px;left:calc(50% + 6px)}
 
-  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
-  .stat b{display:block;font-size:24px;color:var(--gur);line-height:1.2}
-  .stat span{color:var(--muted);font-size:13px}
-  .stat.alert b{color:var(--s-new)}
+  main{padding:16px 16px 96px;max-width:1240px;margin:0 auto}
+  .phead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .phead h1{font-size:22px;font-weight:700;letter-spacing:-.2px}
+  .phead p{color:var(--muted);font-size:13.5px}
+  .phead .acts{display:flex;gap:8px}
+  .view{display:none}.view.on{display:block}
 
-  .toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-  .toolbar input{flex:1;min-width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff}
-  .btn{border:0;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;background:var(--gur);color:#fff;white-space:nowrap}
-  .btn.ghost{background:#fff;color:var(--gur);border:1.5px solid var(--line)}
-  .btn:disabled{opacity:.5}
-  .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
-  .chips button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer}
-  .chips button.on{background:var(--gur-deep);border-color:var(--gur-deep);color:#fff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
+  .btn:hover{background:var(--surface-2);border-color:#ddd4c8}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  .btn.primary:hover{background:var(--brand-2)}
+  .btn:disabled{opacity:.55;cursor:default}
 
-  .order{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--c,var(--line));border-radius:14px;padding:12px;margin-bottom:10px}
-  .o-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-  .o-id{font-weight:700;color:var(--gur-deep)}
-  .o-time{color:var(--muted);font-size:12.5px}
-  .o-total{font-weight:700;font-size:18px;color:var(--gur);text-align:right;white-space:nowrap}
-  .o-total small{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
-  .o-who{margin:6px 0 2px;font-weight:600}
-  .o-addr{color:var(--muted);font-size:14px}
-  .o-items{background:#fbf5ec;border-radius:10px;padding:6px 10px;margin:8px 0;font-size:14px}
-  .o-items div{display:flex;justify-content:space-between;gap:8px}
-  .o-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-  .o-actions a{text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 11px;border-radius:10px;background:#f3ebe0;color:var(--gur-deep)}
-  .o-actions a.wa{background:#e4f8ea;color:#137a3b}
-  .o-actions select{flex:1;min-width:150px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--c,var(--line));font-weight:700;color:var(--c,var(--ink));background:#fff}
-  .o-note{display:flex;gap:6px;margin-top:8px}
-  .o-note input{flex:1;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px}
-  .o-note button{padding:7px 12px}
-  .empty{text-align:center;color:var(--muted);padding:40px 10px;background:#fff;border-radius:14px;border:1px dashed var(--line)}
+  /* ---------- KPI ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-width:0}
+  .kpi .top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:600}
+  .kpi .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
+  .kpi .ic.new{background:var(--s-new-bg);color:var(--s-new)}
+  .kpi .ic.go{background:var(--s-confirmed-bg);color:var(--s-confirmed)}
+  .kpi .ic.ok{background:var(--s-delivered-bg);color:var(--s-delivered)}
+  .kpi .val{font-size:26px;font-weight:700;line-height:1.1;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+  .kpi .sub{font-size:12.5px;color:var(--muted)}
 
-  .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-  .box h3{font-size:16px;color:var(--gur-deep);margin-bottom:10px}
-  .bar{display:grid;grid-template-columns:76px 1fr 70px;gap:8px;align-items:center;font-size:13px;margin-bottom:6px}
-  .bar i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--honey),var(--gur))}
-  .bar span:last-child{text-align:right;color:var(--muted)}
+  /* ---------- card / toolbar ---------- */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line-2)}
+  .card-h h2{font-size:16px;font-weight:700}
+  .card-h span{color:var(--muted);font-size:13px}
+  .card-b{padding:16px}
 
-  .prod{display:grid;grid-template-columns:1fr;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
-  .prod h4{font-size:17px;color:var(--gur-deep)}
-  .prod .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .prod label{font-size:13px;color:var(--muted);font-weight:600}
-  .prod input[type=number]{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:10px;margin-top:2px}
-  .switch{display:flex;align-items:center;gap:8px;font-weight:600;cursor:pointer}
-  .switch input{width:20px;height:20px;accent-color:var(--green)}
+  .toolbar{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line-2)}
+  .search{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--muted)}
+  .search input{flex:1;border:0;outline:0;background:none;color:var(--ink);min-width:0}
+  .search:focus-within{border-color:var(--brand);background:#fff}
+  .seg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .seg::-webkit-scrollbar{display:none}
+  .seg button{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:13.5px;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+  .seg button .n{font-size:12px;color:var(--muted);font-weight:600}
+  .seg button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .seg button.on .n{color:#d6d3d1}
 
-  .toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,140px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;transition:transform .25s;z-index:50;max-width:calc(100% - 28px);text-align:center}
-  .toast.show{transform:translate(-50%,0)}
-  .toast.err{background:#b3261e}
-  .muted{color:var(--muted);font-size:13px}
+  /* ---------- status pill ---------- */
+  .pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;color:var(--c);background:var(--cb)}
+  .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+  .st-new{--c:var(--s-new);--cb:var(--s-new-bg)}
+  .st-confirmed{--c:var(--s-confirmed);--cb:var(--s-confirmed-bg)}
+  .st-shipped{--c:var(--s-shipped);--cb:var(--s-shipped-bg)}
+  .st-delivered{--c:var(--s-delivered);--cb:var(--s-delivered-bg)}
+  .st-cancelled{--c:var(--s-cancelled);--cb:var(--s-cancelled-bg)}
+  select.pill{appearance:none;-webkit-appearance:none;border:1px solid transparent;cursor:pointer;padding-right:28px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center;background-color:var(--cb)}
+  select.pill:focus{outline:2px solid var(--c);outline-offset:1px}
 
-  @media (min-width:760px){
-    .cards{grid-template-columns:repeat(4,1fr)}
-    .orders{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .orders .order{margin:0}
-    .prod{grid-template-columns:1.2fr 2fr auto;align-items:end}
+  /* ---------- orders ---------- */
+  .ohead{display:none}
+  .orow{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 16px;border-bottom:1px solid var(--line-2)}
+  .orow:last-child{border-bottom:0}
+  .orow.is-new{background:linear-gradient(90deg,var(--s-new-bg),transparent 40%)}
+  .c-id b{display:block;font-weight:700;font-variant-numeric:tabular-nums}
+  .c-id small,.c-who small,.muted{color:var(--muted);font-size:12.5px}
+  .c-who{grid-column:1/-1}
+  .c-who b{font-weight:600}
+  .c-items{grid-column:1/-1;font-size:13.5px;color:var(--ink-2)}
+  .c-items span{display:inline-block;background:var(--surface-2);border:1px solid var(--line-2);border-radius:6px;padding:1px 7px;margin:2px 4px 2px 0}
+  .c-total{text-align:right;font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;grid-row:1;grid-column:2}
+  .c-total small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+  .c-status{grid-column:1}
+  .c-act{grid-column:2;display:flex;gap:6px;justify-content:flex-end;align-items:center}
+  .c-act a,.c-act button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--ink-2)}
+  .c-act a.wa{color:#15803d}
+  .c-act button.has{color:var(--brand);border-color:#e6cdb5;background:var(--brand-soft)}
+  .c-note{grid-column:1/-1;display:none;gap:8px}
+  .orow.note-open .c-note{display:flex}
+  .c-note input{flex:1;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:9px;min-width:0}
+  .c-note input:focus{outline:0;border-color:var(--brand)}
+  .note-line{grid-column:1/-1;font-size:12.5px;color:var(--brand);display:flex;gap:6px;align-items:center}
+
+  .empty{padding:48px 16px;text-align:center;color:var(--muted)}
+  .empty svg{width:44px;height:44px;stroke:var(--faint);margin-bottom:8px}
+  .empty b{display:block;color:var(--ink-2);font-size:16px;margin-bottom:2px}
+
+  .skel{height:72px;margin:12px 16px;border-radius:10px;background:linear-gradient(90deg,#f1ece5 25%,#f8f5f0 50%,#f1ece5 75%);background-size:200% 100%;animation:sh 1.2s infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+
+  /* ---------- stats ---------- */
+  .grid2{display:grid;gap:14px}
+  .chart{position:relative}
+  .chart svg{display:block;width:100%;height:auto;overflow:visible}
+  .chart .gl{stroke:var(--line-2);stroke-width:1}
+  .chart .ax{fill:var(--muted);font-size:11px;font-family:inherit}
+  .chart .bar{fill:var(--brand);transition:opacity .15s}
+  .chart .hit{fill:transparent;cursor:pointer}
+  .chart .hit:hover + .bar,.chart .bar.hl{fill:var(--brand-2)}
+  .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-110%);opacity:0;transition:opacity .1s;z-index:5}
+  .tip.on{opacity:1}
+  .hbar{display:grid;grid-template-columns:96px 1fr 64px;align-items:center;gap:10px;margin-bottom:12px;font-size:13.5px}
+  .hbar .track{height:12px;border-radius:6px;background:var(--line-2);overflow:hidden}
+  .hbar .fill{height:100%;border-radius:0 6px 6px 0;background:var(--brand)}
+  .hbar .v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  .stack{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px;background:var(--surface);margin:4px 0 12px}
+  .stack i{display:block;background:var(--c);min-width:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px}
+  .sumrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .sumrow:last-child{border-bottom:0}
+  .sumrow b{font-variant-numeric:tabular-nums}
+
+  /* ---------- products ---------- */
+  .pgrid{display:grid;gap:12px}
+  .pcard{display:grid;grid-template-columns:84px 1fr;gap:14px;padding:14px;align-items:start}
+  .pcard img{width:84px;height:84px;border-radius:12px;object-fit:cover;background:var(--surface-2)}
+  .pcard h3{font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .pcard .meta{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:3px}
+  .money{display:flex;align-items:center;height:38px;border:1px solid var(--line);border-radius:9px;padding:0 10px;background:var(--surface-2)}
+  .money span{color:var(--muted);margin-right:4px}
+  .money input{border:0;outline:0;background:none;width:100%;font-weight:600;font-variant-numeric:tabular-nums}
+  .money:focus-within{border-color:var(--brand);background:#fff}
+  .pcard .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .toggle{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13.5px;font-weight:600;user-select:none}
+  .toggle input{position:absolute;opacity:0;pointer-events:none}
+  .toggle .tr{width:40px;height:22px;border-radius:11px;background:#d6d3d1;position:relative;transition:background .15s}
+  .toggle .tr::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
+  .toggle input:checked + .tr{background:var(--s-delivered)}
+  .toggle input:checked + .tr::after{transform:translateX(18px)}
+  .toggle input:focus-visible + .tr{outline:2px solid var(--brand);outline-offset:2px}
+  .stock{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px}
+  .stock.in{color:var(--s-delivered);background:var(--s-delivered-bg)}
+  .stock.out{color:var(--s-cancelled);background:var(--s-cancelled-bg)}
+  .hint{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--brand-soft);color:var(--ink-2);font-size:13.5px;margin-bottom:14px}
+
+  /* ---------- toast ---------- */
+  .toasts{position:fixed;left:16px;right:16px;bottom:78px;z-index:60;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+  .toast{display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.18);animation:tin .2s ease}
+  .toast.err{background:#b91c1c}
+  @keyframes tin{from{opacity:0;transform:translateY(8px)}}
+
+  /* ---------- tablet / desktop ---------- */
+  @media (min-width:700px){
+    .kpis{grid-template-columns:repeat(4,1fr)}
+    .toolbar{flex-direction:row;align-items:center}
+    .toolbar .search{width:320px;flex:none}
+    .pgrid{grid-template-columns:1fr 1fr}
+    .grid2{grid-template-columns:1.6fr 1fr}
+  }
+  @media (min-width:1024px){
+    body{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+    .mtop,.bnav{display:none}
+    .side{display:flex;flex-direction:column;position:sticky;top:0;height:100vh;background:var(--side);color:var(--side-ink);padding:18px 14px}
+    .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px}
+    .brand img{width:40px;height:40px;border-radius:50%;background:#fff}
+    .brand b{color:#fff;font-size:16px;line-height:1.2}
+    .brand small{display:block;font-weight:400;font-size:12px;color:var(--side-ink)}
+    .side nav{display:flex;flex-direction:column;gap:4px}
+    .side nav button{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border:0;border-radius:10px;background:none;color:var(--side-ink);font-weight:600;font-size:14.5px;cursor:pointer;text-align:left}
+    .side nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+    .side nav button.on{background:rgba(255,255,255,.1);color:#fff}
+    .side nav button .badge{margin-left:auto}
+    .side .foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;font-size:12.5px}
+    .side .foot a{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);color:#fff}
+    .side .foot a:hover{background:rgba(255,255,255,.06)}
+    main{padding:28px 32px 40px;width:100%}
+    .phead h1{font-size:26px}
+    .toasts{left:auto;right:24px;bottom:24px;align-items:flex-end}
+
+    .ohead{display:grid;grid-template-columns:150px 1.3fr 1.6fr 110px 190px 120px;gap:12px;padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--line-2);font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+    .ohead .r{text-align:right}
+    .orow{grid-template-columns:150px 1.3fr 1.6fr 110px 190px 120px;align-items:center;gap:12px}
+    .c-who,.c-items,.c-total,.c-status,.c-act{grid-column:auto;grid-row:auto}
+    .c-note,.note-line{grid-column:2/-1}
+    .orow:hover{background:var(--surface-2)}
+    .orow.is-new:hover{background:linear-gradient(90deg,var(--s-new-bg),var(--surface-2) 40%)}
   }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap top">
+
+<!-- svg icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15v2M11 10v7M15 12v5M19 7v10"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4v5h-5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M4 20h16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M1 4h14v12H1zM15 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></symbol>
+</svg>
+
+<aside class="side">
+  <div class="brand">
     <img src="/images/logo-sm.png" alt="">
-    <h1>কৃষকের ঝুলি<small>অ্যাডমিন ড্যাশবোর্ড</small></h1>
-    <a class="site" href="/" target="_blank" rel="noopener">ওয়েবসাইট ↗</a>
+    <div><b>কৃষকের ঝুলি</b><small>অ্যাডমিন প্যানেল</small></div>
   </div>
-  <div class="wrap tabs">
-    <button data-tab="orders" class="on">📦 অর্ডার</button>
-    <button data-tab="stats">📊 হিসাব</button>
-    <button data-tab="products">🏷️ দাম ও স্টক</button>
+  <nav>
+    <button data-view="orders" class="on"><svg class="i"><use href="#i-box"/></svg>অর্ডার<span class="badge" data-newbadge hidden></span></button>
+    <button data-view="stats"><svg class="i"><use href="#i-chart"/></svg>হিসাব ও রিপোর্ট</button>
+    <button data-view="products"><svg class="i"><use href="#i-tag"/></svg>দাম ও স্টক</button>
+  </nav>
+  <div class="foot">
+    <a href="/" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg>ওয়েবসাইট দেখুন</a>
+    <span style="padding:0 4px;opacity:.7">💵 ক্যাশ অন ডেলিভারি</span>
   </div>
+</aside>
+
+<header class="mtop">
+  <img src="/images/logo-sm.png" alt="">
+  <b>কৃষকের ঝুলি<small>অ্যাডমিন প্যানেল</small></b>
+  <a class="icon-btn" href="/" target="_blank" rel="noopener" aria-label="ওয়েবসাইট দেখুন"><svg class="i"><use href="#i-ext"/></svg></a>
 </header>
 
-<main class="wrap">
-  <!-- অর্ডার -->
-  <section class="panel on" id="orders">
-    <div class="cards" id="cards"></div>
-    <div class="toolbar">
-      <input id="q" type="search" placeholder="🔍 নাম, নম্বর বা অর্ডার নং দিয়ে খুঁজুন">
-      <button class="btn ghost" id="refresh">↻ রিফ্রেশ</button>
-      <button class="btn ghost" id="csv">⬇ CSV</button>
+<main>
+  <!-- ================= ORDERS ================= -->
+  <section class="view on" id="v-orders">
+    <div class="phead">
+      <div><h1>অর্ডার</h1><p id="updated">লোড হচ্ছে…</p></div>
+      <div class="acts">
+        <button class="btn" id="csv"><svg class="i"><use href="#i-down"/></svg><span>CSV</span></button>
+        <button class="icon-btn" id="refresh" aria-label="রিফ্রেশ"><svg class="i"><use href="#i-refresh"/></svg></button>
+      </div>
     </div>
-    <div class="chips" id="chips"></div>
-    <div class="orders" id="list"></div>
+
+    <div class="kpis" id="kpis">
+      <div class="kpi"><div class="top">নতুন অর্ডার<span class="ic new"><svg class="i"><use href="#i-bell"/></svg></span></div><div class="val" id="k-new">—</div><div class="sub">কল করে কনফার্ম করা বাকি</div></div>
+      <div class="kpi"><div class="top">আজকের অর্ডার<span class="ic"><svg class="i"><use href="#i-cart"/></svg></span></div><div class="val" id="k-today">—</div><div class="sub" id="k-today-amt">—</div></div>
+      <div class="kpi"><div class="top">কনফার্ম / পথে<span class="ic go"><svg class="i"><use href="#i-truck"/></svg></span></div><div class="val" id="k-prog">—</div><div class="sub">ডেলিভারির অপেক্ষায়</div></div>
+      <div class="kpi"><div class="top">এই মাসের বিক্রি<span class="ic ok"><svg class="i"><use href="#i-cash"/></svg></span></div><div class="val" id="k-month">—</div><div class="sub">ডেলিভারি সম্পন্ন অর্ডার</div></div>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <label class="search"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" placeholder="নাম, মোবাইল বা অর্ডার নং খুঁজুন"></label>
+        <div class="seg" id="seg"></div>
+      </div>
+      <div class="ohead"><span>অর্ডার</span><span>ক্রেতা</span><span>পণ্য</span><span class="r">মোট</span><span>স্ট্যাটাস</span><span class="r">অ্যাকশন</span></div>
+      <div id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    </div>
   </section>
 
-  <!-- হিসাব -->
-  <section class="panel" id="stats">
-    <div class="box"><h3>গত ১৪ দিনের অর্ডার</h3><div id="days"></div></div>
-    <div class="box"><h3>কোন গুড় কত কেজি বিক্রি (বাতিল বাদে)</h3><div id="byProduct"></div></div>
-    <div class="box"><h3>সারাংশ</h3><div id="summary"></div></div>
+  <!-- ================= STATS ================= -->
+  <section class="view" id="v-stats">
+    <div class="phead"><div><h1>হিসাব ও রিপোর্ট</h1><p>বাতিল অর্ডার বাদে · বাংলাদেশ সময়</p></div></div>
+    <div class="kpis" id="kpis2"></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-h"><h2>গত ১৪ দিনের অর্ডার</h2><span>প্রতিদিন অর্ডারের সংখ্যা</span></div>
+        <div class="card-b"><div class="chart" id="dayChart"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>স্ট্যাটাস অনুযায়ী</h2><span id="allCount"></span></div>
+        <div class="card-b" id="statusBox"></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>কোন গুড় কত কেজি</h2><span>মোট অর্ডার করা পরিমাণ</span></div>
+        <div class="card-b" id="byProduct"></div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>সারাংশ</h2></div>
+        <div class="card-b" id="summary"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- দাম ও স্টক -->
-  <section class="panel" id="products">
-    <p class="muted" style="margin-bottom:10px">এখানে দাম বা স্টক বদলালে ওয়েবসাইটে ১ মিনিটের মধ্যে দেখাবে। নতুন অর্ডারের হিসাব নতুন দামে হবে।</p>
-    <div id="prodList"></div>
+  <!-- ================= PRODUCTS ================= -->
+  <section class="view" id="v-products">
+    <div class="phead"><div><h1>দাম ও স্টক</h1><p>পরিবর্তন ওয়েবসাইটে ১ মিনিটের মধ্যে দেখাবে</p></div></div>
+    <div class="hint"><svg class="i"><use href="#i-info"/></svg><span>স্টক বন্ধ করলে ওয়েবসাইটে "স্টক শেষ" দেখাবে আর অর্ডার নেওয়া হবে না। আগের অর্ডারের দাম বদলাবে না — শুধু নতুন অর্ডার নতুন দামে হবে।</span></div>
+    <div class="pgrid" id="prodList"></div>
   </section>
 </main>
 
-<div class="toast" id="toast"></div>
+<nav class="bnav" aria-label="মেনু">
+  <button data-view="orders" class="on"><svg class="i"><use href="#i-box"/></svg>অর্ডার<span class="badge" data-newbadge hidden></span></button>
+  <button data-view="stats"><svg class="i"><use href="#i-chart"/></svg>হিসাব</button>
+  <button data-view="products"><svg class="i"><use href="#i-tag"/></svg>দাম ও স্টক</button>
+</nav>
+
+<div class="toasts" id="toasts" role="status"></div>
 
 <script>
   const STATUS = {
-    new:       { label: "🆕 নতুন",            c: "var(--s-new)" },
-    confirmed: { label: "📞 কনফার্ম",          c: "var(--s-confirmed)" },
-    shipped:   { label: "🚚 পাঠানো হয়েছে",     c: "var(--s-shipped)" },
-    delivered: { label: "✅ ডেলিভারি সম্পন্ন",  c: "var(--s-delivered)" },
-    cancelled: { label: "❌ বাতিল",            c: "var(--s-cancelled)" },
+    new:       "নতুন",
+    confirmed: "কনফার্ম",
+    shipped:   "পাঠানো হয়েছে",
+    delivered: "ডেলিভারি সম্পন্ন",
+    cancelled: "বাতিল",
   };
+  const IMG = { gol: "/images/gol-patali.webp", beej: "/images/beej-gur.webp", foil: "/images/foil-patali.webp", jhola: "/images/jhola-gur.svg" };
   const $ = id => document.getElementById(id);
   const bn = n => String(n ?? 0).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
   const tk = n => "৳" + bn(Math.round(n || 0).toLocaleString("en-IN"));
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-  const when = iso => new Date(iso).toLocaleString("bn-BD", { timeZone: "Asia/Dhaka", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+  const icon = id => `<svg class="i"><use href="#i-${id}"/></svg>`;
+  const fmtDate = iso => new Date(iso).toLocaleDateString("bn-BD", { timeZone: "Asia/Dhaka", day: "numeric", month: "short" });
+  const fmtTime = iso => new Date(iso).toLocaleTimeString("bn-BD", { timeZone: "Asia/Dhaka", hour: "numeric", minute: "2-digit" });
 
-  let tt;
   function toast(msg, err) {
-    const t = $("toast"); t.textContent = msg; t.className = "toast show" + (err ? " err" : "");
-    clearTimeout(tt); tt = setTimeout(() => t.className = "toast", 2400);
+    const t = document.createElement("div");
+    t.className = "toast" + (err ? " err" : ""); t.textContent = msg;
+    $("toasts").appendChild(t); setTimeout(() => t.remove(), 2600);
   }
   async function api(path, opts = {}) {
     const r = await fetch("/api/admin/" + path, { ...opts, headers: { "content-type": "application/json", ...(opts.headers || {}) } });
@@ -165,107 +366,125 @@
     return data;
   }
 
-  // ---------- tabs ----------
-  document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
-    document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
-    document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === b.dataset.tab));
-    if (b.dataset.tab === "stats") loadStats();
-    if (b.dataset.tab === "products") loadProducts();
-  });
+  // ---------- navigation ----------
+  function show(view) {
+    document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("on", b.dataset.view === view));
+    document.querySelectorAll(".view").forEach(v => v.classList.toggle("on", v.id === "v-" + view));
+    if (view === "stats") loadStats();
+    if (view === "products") loadProducts();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => show(b.dataset.view));
 
   // ---------- orders ----------
-  let orders = [], filter = "all";
+  let orders = [], stats = {}, filter = "all", openNotes = new Set();
 
   async function loadOrders(silent) {
+    $("refresh").classList.add("spin");
     try {
       const [o, s] = await Promise.all([api("orders?limit=500"), api("stats")]);
       const before = orders.filter(x => x.status === "new").length;
-      orders = o.orders;
-      renderCards(s.stats);
-      renderOrders();
+      orders = o.orders; stats = s.stats;
+      renderKpis(); renderOrders();
       const after = orders.filter(x => x.status === "new").length;
       if (silent && after > before) toast("🔔 নতুন অর্ডার এসেছে!");
+      $("updated").textContent = "সর্বশেষ আপডেট: " + new Date().toLocaleTimeString("bn-BD", { hour: "numeric", minute: "2-digit" });
     } catch (e) { if (!silent) toast(e.message, true); }
+    $("refresh").classList.remove("spin");
   }
 
-  function renderCards(st) {
-    $("cards").innerHTML = `
-      <div class="stat alert"><b>${bn(st.pending || 0)}</b><span>নতুন (কল করা বাকি)</span></div>
-      <div class="stat"><b>${bn(st.today_orders || 0)}</b><span>আজকের অর্ডার</span></div>
-      <div class="stat"><b>${bn(st.in_progress || 0)}</b><span>কনফার্ম / পথে</span></div>
-      <div class="stat"><b>${tk(st.month_sales)}</b><span>এই মাসের বিক্রি (ডেলিভারি সম্পন্ন)</span></div>`;
+  function renderKpis() {
+    $("k-new").textContent = bn(stats.pending || 0);
+    $("k-today").textContent = bn(stats.today_orders || 0);
+    $("k-today-amt").textContent = "মোট " + tk(stats.today_amount);
+    $("k-prog").textContent = bn(stats.in_progress || 0);
+    $("k-month").textContent = tk(stats.month_sales);
+    const n = stats.pending || 0;
+    document.querySelectorAll("[data-newbadge]").forEach(b => { b.hidden = !n; b.textContent = bn(n); });
+    document.title = (n ? `(${bn(n)}) ` : "") + "অ্যাডমিন — কৃষকের ঝুলি";
   }
 
   function renderOrders() {
     const counts = { all: orders.length };
     for (const o of orders) counts[o.status] = (counts[o.status] || 0) + 1;
-    $("chips").innerHTML = [["all", "সব"], ...Object.entries(STATUS).map(([k, v]) => [k, v.label])]
-      .map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l} (${bn(counts[k] || 0)})</button>`).join("");
+    $("seg").innerHTML = [["all", "সব"], ...Object.entries(STATUS)]
+      .map(([k, l]) => `<button data-f="${k}" class="${filter === k ? "on" : ""}">${l}<span class="n">${bn(counts[k] || 0)}</span></button>`).join("");
 
     const q = $("q").value.trim().toLowerCase();
     const list = orders.filter(o => (filter === "all" || o.status === filter) &&
       (!q || [o.id, o.name, o.phone, o.address].join(" ").toLowerCase().includes(q)));
 
-    $("list").innerHTML = list.length ? list.map(o => {
-      const st = STATUS[o.status] || STATUS.new;
-      const msg = encodeURIComponent(`আসসালামু আলাইকুম ${o.name}, কৃষকের ঝুলি থেকে বলছি। আপনার অর্ডার (${o.id}) — মোট ${tk(o.total)}। অর্ডারটি কনফার্ম করছি।`);
+    if (!list.length) {
+      $("list").innerHTML = `<div class="empty">${icon("inbox")}<b>${orders.length ? "কিছু পাওয়া যায়নি" : "এখনো কোনো অর্ডার নেই"}</b>${orders.length ? "অন্য ফিল্টার বা শব্দ দিয়ে খুঁজুন" : "ওয়েবসাইট থেকে অর্ডার এলে এখানে দেখাবে"}</div>`;
+      return;
+    }
+    $("list").innerHTML = list.map(o => {
+      const msg = encodeURIComponent(`আসসালামু আলাইকুম ${o.name}, কৃষকের ঝুলি থেকে বলছি। আপনার অর্ডার (${o.id}) — মোট ${tk(o.total)}, ক্যাশ অন ডেলিভারি। অর্ডারটি কনফার্ম করছি।`);
       return `
-      <article class="order" style="--c:${st.c}" data-id="${esc(o.id)}">
-        <div class="o-head">
-          <div><div class="o-id">${esc(o.id)}</div><div class="o-time">${when(o.created_at)}</div></div>
-          <div class="o-total">${tk(o.total)}<small>ক্যাশ অন ডেলিভারি</small></div>
-        </div>
-        <div class="o-who">👤 ${esc(o.name)} · ${esc(o.phone)}</div>
-        <div class="o-addr">📍 ${esc(o.area)} — ${esc(o.address)}</div>
-        <div class="o-items">
-          ${o.items.map(i => `<div><span>${esc(i.name)} × ${bn(i.kg)} কেজি</span><span>${tk(i.amount)}</span></div>`).join("")}
-          <div class="muted"><span>ডেলিভারি চার্জ</span><span>${tk(o.delivery)}</span></div>
-        </div>
-        <div class="o-actions">
-          <a href="tel:${esc(o.phone)}">📞 কল</a>
-          <a class="wa" href="https://wa.me/88${esc(o.phone)}?text=${msg}" target="_blank" rel="noopener">💬 হোয়াটসঅ্যাপ</a>
-          <select data-status aria-label="স্ট্যাটাস">
-            ${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${k === o.status ? "selected" : ""}>${v.label}</option>`).join("")}
+      <div class="orow ${o.status === "new" ? "is-new" : ""} ${openNotes.has(o.id) ? "note-open" : ""}" data-id="${esc(o.id)}">
+        <div class="c-id"><b>${esc(o.id)}</b><small>${fmtDate(o.created_at)} · ${fmtTime(o.created_at)}</small></div>
+        <div class="c-who"><b>${esc(o.name)}</b><br><small>${esc(o.phone)} · ${esc(o.area)}</small><br><small>${esc(o.address)}</small></div>
+        <div class="c-items">${o.items.map(i => `<span>${esc(i.name)} × ${bn(i.kg)} কেজি</span>`).join("")}</div>
+        <div class="c-total">${tk(o.total)}<small>ডেলিভারি ${tk(o.delivery)} সহ</small></div>
+        <div class="c-status">
+          <select class="pill st-${o.status}" data-status aria-label="স্ট্যাটাস">
+            ${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${k === o.status ? "selected" : ""}>${v}</option>`).join("")}
           </select>
         </div>
-        <div class="o-note">
-          <input data-note value="${esc(o.note)}" placeholder="নোট (যেমন: কুরিয়ার ট্র্যাকিং নং)">
-          <button class="btn ghost" data-save-note>সেভ</button>
+        <div class="c-act">
+          <a href="tel:${esc(o.phone)}" title="কল করুন" aria-label="কল করুন">${icon("phone")}</a>
+          <a class="wa" href="https://wa.me/88${esc(o.phone)}?text=${msg}" target="_blank" rel="noopener" title="হোয়াটসঅ্যাপ" aria-label="হোয়াটসঅ্যাপ">${icon("wa")}</a>
+          <button data-note-toggle class="${o.note ? "has" : ""}" title="নোট" aria-label="নোট">${icon("note")}</button>
         </div>
-      </article>`;
-    }).join("") : `<div class="empty">${orders.length ? "এই ফিল্টারে কোনো অর্ডার নেই" : "এখনো কোনো অর্ডার আসেনি 🌱"}</div>`;
+        ${o.note && !openNotes.has(o.id) ? `<div class="note-line">${icon("note")}${esc(o.note)}</div>` : ""}
+        <div class="c-note">
+          <input data-note value="${esc(o.note)}" placeholder="নোট লিখুন — যেমন কুরিয়ার ট্র্যাকিং নং">
+          <button class="btn primary" data-save-note>সেভ</button>
+        </div>
+      </div>`;
+    }).join("");
   }
 
-  $("chips").onclick = e => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; renderOrders(); } };
+  $("seg").onclick = e => { const b = e.target.closest("[data-f]"); if (b) { filter = b.dataset.f; renderOrders(); } };
   $("q").oninput = renderOrders;
   $("refresh").onclick = () => loadOrders();
 
   $("list").addEventListener("change", async e => {
     const sel = e.target.closest("[data-status]"); if (!sel) return;
-    const id = sel.closest(".order").dataset.id;
+    const id = sel.closest(".orow").dataset.id;
+    sel.className = "pill st-" + sel.value;
     try {
       await api("orders", { method: "PATCH", body: JSON.stringify({ id, status: sel.value }) });
-      const o = orders.find(x => x.id === id); o.status = sel.value;
-      toast("✅ স্ট্যাটাস বদলানো হয়েছে");
-      renderOrders(); api("stats").then(s => renderCards(s.stats)).catch(() => {});
-    } catch (err) { toast(err.message, true); }
+      orders.find(x => x.id === id).status = sel.value;
+      toast("স্ট্যাটাস: " + STATUS[sel.value]);
+      renderOrders(); api("stats").then(s => { stats = s.stats; renderKpis(); }).catch(() => {});
+    } catch (err) { toast(err.message, true); renderOrders(); }
   });
   $("list").addEventListener("click", async e => {
+    const t = e.target.closest("[data-note-toggle]");
+    if (t) {
+      const id = t.closest(".orow").dataset.id;
+      openNotes.has(id) ? openNotes.delete(id) : openNotes.add(id);
+      renderOrders();
+      if (openNotes.has(id)) document.querySelector(`.orow[data-id="${CSS.escape(id)}"] [data-note]`).focus();
+      return;
+    }
     const b = e.target.closest("[data-save-note]"); if (!b) return;
-    const card = b.closest(".order"), id = card.dataset.id, note = card.querySelector("[data-note]").value;
+    const row = b.closest(".orow"), id = row.dataset.id, note = row.querySelector("[data-note]").value;
     b.disabled = true;
     try {
       await api("orders", { method: "PATCH", body: JSON.stringify({ id, note }) });
-      orders.find(x => x.id === id).note = note; toast("✅ নোট সেভ হয়েছে");
-    } catch (err) { toast(err.message, true); }
-    b.disabled = false;
+      orders.find(x => x.id === id).note = note; openNotes.delete(id); renderOrders(); toast("নোট সেভ হয়েছে");
+    } catch (err) { toast(err.message, true); b.disabled = false; }
+  });
+  $("list").addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.matches("[data-note]")) e.target.closest(".orow").querySelector("[data-save-note]").click();
   });
 
   $("csv").onclick = () => {
-    const head = ["অর্ডার নং", "সময়", "নাম", "মোবাইল", "এলাকা", "ঠিকানা", "পণ্য", "মোট কেজি", "পণ্যের দাম", "ডেলিভারি", "মোট", "স্ট্যাটাস", "নোট"];
-    const rows = orders.map(o => [o.id, when(o.created_at), o.name, o.phone, o.area, o.address,
-      o.items.map(i => `${i.name} ${i.kg}কেজি`).join("; "), o.kg, o.subtotal, o.delivery, o.total,
-      (STATUS[o.status] || {}).label || o.status, o.note]);
+    const head = ["অর্ডার নং", "তারিখ", "সময়", "নাম", "মোবাইল", "এলাকা", "ঠিকানা", "পণ্য", "মোট কেজি", "পণ্যের দাম", "ডেলিভারি", "মোট", "স্ট্যাটাস", "নোট"];
+    const rows = orders.map(o => [o.id, fmtDate(o.created_at), fmtTime(o.created_at), o.name, o.phone, o.area, o.address,
+      o.items.map(i => `${i.name} ${i.kg}কেজি`).join("; "), o.kg, o.subtotal, o.delivery, o.total, STATUS[o.status] || o.status, o.note]);
     const csv = "﻿" + [head, ...rows].map(r => r.map(v => `"${String(v ?? "").replace(/"/g, '""')}"`).join(",")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
@@ -274,25 +493,78 @@
   };
 
   // ---------- stats ----------
+  function dayChart(days) {
+    // শেষ ১৪ দিন, ফাঁকা দিনে ০
+    const map = Object.fromEntries(days.map(d => [d.day, d]));
+    const out = [];
+    const now = new Date(Date.now() + 6 * 3600e3);
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now); d.setUTCDate(d.getUTCDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      out.push({ day: key, orders: map[key]?.orders || 0, amount: map[key]?.amount || 0 });
+    }
+    const W = 640, H = 220, L = 30, R = 8, T = 10, B = 26;
+    const max = Math.max(4, ...out.map(d => d.orders));
+    const step = Math.ceil(max / 4), top = step * 4;
+    const bw = (W - L - R) / out.length, barW = Math.max(6, bw - 8);
+    const y = v => T + (H - T - B) * (1 - v / top);
+    let g = "";
+    for (let v = 0; v <= top; v += step) g += `<line class="gl" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${bn(v)}</text>`;
+    const bars = out.map((d, i) => {
+      const x = L + i * bw + (bw - barW) / 2, h = (H - T - B) - (y(d.orders) - T);
+      const r = Math.min(4, barW / 2), yy = y(d.orders), base = H - B;
+      const path = d.orders ? `M${x},${base} V${yy + r} Q${x},${yy} ${x + r},${yy} H${x + barW - r} Q${x + barW},${yy} ${x + barW},${yy + r} V${base} Z` : "";
+      const lbl = (i % 2 === (out.length - 1) % 2) ? `<text class="ax" x="${x + barW / 2}" y="${H - 8}" text-anchor="middle">${bn(new Date(d.day).getUTCDate())}</text>` : "";
+      return `<rect class="hit" x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" data-i="${i}"/>${path ? `<path class="bar" d="${path}" data-b="${i}"/>` : ""}${lbl}`;
+    }).join("");
+    const el = $("dayChart");
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="গত ১৪ দিনের অর্ডার">${g}${bars}</svg><div class="tip" id="tip"></div>`;
+    const tip = el.querySelector("#tip");
+    el.querySelectorAll(".hit").forEach(h => {
+      const on = () => {
+        const d = out[+h.dataset.i], box = el.getBoundingClientRect(), hb = h.getBoundingClientRect();
+        tip.innerHTML = `<b>${fmtDate(d.day + "T06:00:00Z")}</b> · ${bn(d.orders)}টি অর্ডার · ${tk(d.amount)}`;
+        tip.style.left = (hb.left - box.left + hb.width / 2) + "px";
+        tip.style.top = (y(d.orders) / H * box.height) + "px";
+        tip.classList.add("on");
+        el.querySelectorAll(".bar").forEach(b => b.classList.toggle("hl", b.dataset.b === h.dataset.i));
+      };
+      h.addEventListener("mouseenter", on); h.addEventListener("click", on);
+      h.addEventListener("mouseleave", () => { tip.classList.remove("on"); el.querySelectorAll(".bar").forEach(b => b.classList.remove("hl")); });
+    });
+  }
+
   async function loadStats() {
     try {
-      const { stats: st, byProduct, days } = await api("stats");
-      const maxD = Math.max(1, ...days.map(d => d.orders));
-      $("days").innerHTML = days.length ? days.map(d => `
-        <div class="bar"><span>${new Date(d.day).toLocaleDateString("bn-BD", { day: "numeric", month: "short" })}</span>
-        <i style="width:${Math.max(4, d.orders / maxD * 100)}%"></i><span>${bn(d.orders)}টি · ${tk(d.amount)}</span></div>`).join("")
+      const [{ stats: st, byProduct, days }, { orders: all }] = await Promise.all([api("stats"), api("orders?limit=1000")]);
+      $("kpis2").innerHTML = `
+        <div class="kpi"><div class="top">মোট অর্ডার<span class="ic"><svg class="i"><use href="#i-cart"/></svg></span></div><div class="val">${bn(st.all_orders || 0)}</div><div class="sub">শুরু থেকে এ পর্যন্ত</div></div>
+        <div class="kpi"><div class="top">এই মাসে<span class="ic go"><svg class="i"><use href="#i-box"/></svg></span></div><div class="val">${bn(st.month_orders || 0)}</div><div class="sub">বাতিল বাদে</div></div>
+        <div class="kpi"><div class="top">এই মাসের বিক্রি<span class="ic ok"><svg class="i"><use href="#i-cash"/></svg></span></div><div class="val">${tk(st.month_sales)}</div><div class="sub">ডেলিভারি সম্পন্ন</div></div>
+        <div class="kpi"><div class="top">সর্বমোট বিক্রি<span class="ic ok"><svg class="i"><use href="#i-cash"/></svg></span></div><div class="val">${tk(st.total_sales)}</div><div class="sub">ডেলিভারি সম্পন্ন</div></div>`;
+      dayChart(days);
+
+      const counts = {}; for (const o of all) counts[o.status] = (counts[o.status] || 0) + 1;
+      const total = all.length || 1;
+      $("allCount").textContent = `মোট ${bn(all.length)}টি`;
+      $("statusBox").innerHTML = all.length ? `
+        <div class="stack">${Object.keys(STATUS).filter(k => counts[k]).map(k => `<i class="st-${k}" style="flex:${counts[k]};--c:var(--s-${k})" title="${STATUS[k]}: ${counts[k]}"></i>`).join("")}</div>
+        <div class="legend">${Object.entries(STATUS).map(([k, v]) => `<span class="pill st-${k}">${v} · ${bn(counts[k] || 0)}</span>`).join("")}</div>
+        <p class="muted" style="margin-top:12px">${bn(Math.round((counts.delivered || 0) / total * 100))}% অর্ডার ডেলিভারি সম্পন্ন, ${bn(Math.round((counts.cancelled || 0) / total * 100))}% বাতিল</p>`
         : `<p class="muted">এখনো কোনো অর্ডার নেই</p>`;
+
       const entries = Object.entries(byProduct).sort((a, b) => b[1] - a[1]);
       const maxK = Math.max(1, ...entries.map(e => e[1]));
       $("byProduct").innerHTML = entries.length ? entries.map(([n, kg]) => `
-        <div class="bar"><span>${esc(n)}</span><i style="width:${Math.max(4, kg / maxK * 100)}%"></i><span>${bn(kg)} কেজি</span></div>`).join("")
+        <div class="hbar"><span>${esc(n)}</span><div class="track"><div class="fill" style="width:${Math.max(3, kg / maxK * 100)}%"></div></div><span class="v">${bn(kg)} কেজি</span></div>`).join("")
         : `<p class="muted">এখনো কোনো বিক্রি নেই</p>`;
+
+      const avg = all.filter(o => o.status !== "cancelled");
       $("summary").innerHTML = `
-        <div class="bar"><span>মোট অর্ডার</span><i style="width:0"></i><span>${bn(st.all_orders || 0)}টি</span></div>
-        <div class="bar"><span>এই মাসে</span><i style="width:0"></i><span>${bn(st.month_orders || 0)}টি</span></div>
-        <div class="bar"><span>আজ</span><i style="width:0"></i><span>${tk(st.today_amount)}</span></div>
-        <div class="bar"><span>সর্বমোট বিক্রি</span><i style="width:0"></i><span>${tk(st.total_sales)}</span></div>
-        <p class="muted" style="margin-top:6px">বিক্রি = যেসব অর্ডার "ডেলিভারি সম্পন্ন" করা হয়েছে।</p>`;
+        <div class="sumrow"><span>আজকের অর্ডার</span><b>${bn(st.today_orders || 0)}টি · ${tk(st.today_amount)}</b></div>
+        <div class="sumrow"><span>গড় অর্ডার মূল্য</span><b>${tk(avg.length ? avg.reduce((s, o) => s + o.total, 0) / avg.length : 0)}</b></div>
+        <div class="sumrow"><span>মোট বিক্রি হওয়া গুড়</span><b>${bn(entries.reduce((s, e) => s + e[1], 0))} কেজি</b></div>
+        <div class="sumrow"><span>নতুন (কল বাকি)</span><b>${bn(st.pending || 0)}টি</b></div>`;
     } catch (e) { toast(e.message, true); }
   }
 
@@ -301,34 +573,44 @@
     try {
       const { products } = await api("products");
       $("prodList").innerHTML = products.map(p => `
-        <div class="prod" data-id="${esc(p.id)}">
-          <div><h4>${esc(p.name)}</h4>
-            <label class="switch"><input type="checkbox" data-av ${p.available ? "checked" : ""}> স্টকে আছে</label></div>
-          <div class="row">
-            <label>দাম (৳ / কেজি)<input type="number" min="1" data-price value="${p.price}"></label>
-            <label>কাটা দাম (৳, ঐচ্ছিক)<input type="number" min="0" data-old value="${p.old_price ?? ""}"></label>
+        <div class="card pcard" data-id="${esc(p.id)}">
+          <img src="${IMG[p.id] || "/images/logo-sm.png"}" alt="">
+          <div>
+            <h3>${esc(p.name)} <span class="stock ${p.available ? "in" : "out"}">${p.available ? "স্টকে আছে" : "স্টক শেষ"}</span></h3>
+            <div class="meta">প্রতি কেজি · সর্বনিম্ন অর্ডার ১ কেজি</div>
+            <div class="fields">
+              <div class="field"><label>দাম</label><div class="money"><span>৳</span><input type="number" inputmode="numeric" min="1" data-price value="${p.price}"></div></div>
+              <div class="field"><label>কাটা দাম (ঐচ্ছিক)</label><div class="money"><span>৳</span><input type="number" inputmode="numeric" min="0" data-old value="${p.old_price ?? ""}" placeholder="—"></div></div>
+            </div>
+            <div class="row">
+              <label class="toggle"><input type="checkbox" data-av ${p.available ? "checked" : ""}><span class="tr"></span>স্টকে আছে</label>
+              <button class="btn primary" data-save>সেভ করুন</button>
+            </div>
           </div>
-          <button class="btn" data-save>সেভ করুন</button>
         </div>`).join("");
     } catch (e) { toast(e.message, true); }
   }
   $("prodList").addEventListener("click", async e => {
     const b = e.target.closest("[data-save]"); if (!b) return;
-    const card = b.closest(".prod");
+    const card = b.closest(".pcard");
     const body = {
       id: card.dataset.id,
       price: card.querySelector("[data-price]").value,
       old_price: card.querySelector("[data-old]").value,
       available: card.querySelector("[data-av]").checked,
     };
-    b.disabled = true;
-    try { await api("products", { method: "PUT", body: JSON.stringify(body) }); toast("✅ সেভ হয়েছে"); }
-    catch (err) { toast(err.message, true); }
-    b.disabled = false;
+    b.disabled = true; b.textContent = "সেভ হচ্ছে…";
+    try {
+      await api("products", { method: "PUT", body: JSON.stringify(body) });
+      const s = card.querySelector(".stock");
+      s.className = "stock " + (body.available ? "in" : "out"); s.textContent = body.available ? "স্টকে আছে" : "স্টক শেষ";
+      toast("সেভ হয়েছে ✓");
+    } catch (err) { toast(err.message, true); }
+    b.disabled = false; b.textContent = "সেভ করুন";
   });
 
   loadOrders();
-  setInterval(() => { if (!document.hidden && $("orders").classList.contains("on")) loadOrders(true); }, 60000);
+  setInterval(() => { if (!document.hidden && $("v-orders").classList.contains("on")) loadOrders(true); }, 60000);
 </script>
 </body>
 </html>
